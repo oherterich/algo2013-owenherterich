@@ -1,0 +1,1 @@
+Contains files relevant to Algorithmic Animation class in Fall 2013
