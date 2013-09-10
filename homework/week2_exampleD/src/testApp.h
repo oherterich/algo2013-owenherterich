@@ -25,5 +25,11 @@ class testApp : public ofBaseApp{
     ofLight pointLight; // creates a light and enables lighting
     
     Shape myShape;
+    
+    ofPoint moveCam;
+    ofVec3f lookAt;
+    int theta;
+    
+    ofBoxPrimitive box;
 
 };

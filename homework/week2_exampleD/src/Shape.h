@@ -15,10 +15,13 @@ public:
     Shape();
     void update();
     void draw();
+    void changeColor();
 
     ofVec3f pos;
     ofVec3f vel;
 
     float wall;
     float r;
+    float c;
+    
 };

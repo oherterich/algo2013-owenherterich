@@ -15,8 +15,16 @@ public:
     Mover();
     
     void update();
-    void draw();
+    void draw( ofColor c);
+    void wallCollision();
+    void xenoToPoint(ofVec2f catchPos);
     
     ofVec2f pos, mousePos;
     ofVec2f accel, vel;
+    
+    bool dragged;
+    bool leader;
+    
+    float r;
+    float catchUpSpeed;
 };

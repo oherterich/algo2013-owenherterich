@@ -16,6 +16,7 @@ public:
     void update();
     void draw();
     void wallCollide();
+    void setup(float gravity, float initVel);
     
     bool kill();
     
@@ -25,4 +26,5 @@ public:
     
     float initVel;
     float r;
+    float gravity;
 };

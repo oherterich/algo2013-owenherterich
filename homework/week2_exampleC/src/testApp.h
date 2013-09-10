@@ -20,5 +20,15 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+    void drawCannon();
+    
     vector < Ball > ballList;
+    
+    float gravity;
+    float initVel;
+    
+    string whatGravity;
+    
+    ofVec2f mousePos;
+    ofVec2f initPos;
 };

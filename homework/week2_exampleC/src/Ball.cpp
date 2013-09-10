@@ -11,10 +11,9 @@
 Ball::Ball() {
     ofSetRectMode( OF_RECTMODE_CENTER );
     
-    initVel = 0.06;
-    //accel.y = 70,551.18 / ofGetFrameRate(); //70,551 is 9.8m/s2 in px
-    accel.y = 1.2;
-    r = 25;
+    initVel = 0.21;
+    accel.y = 44094.48f / (ofGetFrameRate() * ofGetFrameRate()); //44,094 is 9.8m/s2 in px
+    r = 10;
     
     pos.x = ofGetWindowWidth() / 2;
     pos.y = ofGetWindowHeight();
@@ -24,7 +23,11 @@ Ball::Ball() {
     mousePos.y = ofGetMouseY();
     
     vel = (mousePos - pos) * initVel;
-    //vel = vel.normalize() * initVel;
+}
+
+void Ball::setup(float gravity, float _initVel) {
+    accel.y = gravity;
+    initVel = _initVel;
 }
 
 void Ball::update() {
@@ -33,8 +36,14 @@ void Ball::update() {
 }
 
 void Ball::draw() {
-    ofSetColor( 255, 0, 0 );
+    ofEnableAlphaBlending();
+    ofFill();
+    ofSetColor( 255, 0, 0, 150 );
     ofCircle( pos, r);
+    ofNoFill();
+    ofSetLineWidth(1);
+    ofSetColor(255, 0, 0);
+    ofCircle(pos, r);
 }
 
 void Ball::wallCollide() {
@@ -59,7 +68,7 @@ void Ball::wallCollide() {
         pos.y = ofGetWindowHeight() - r/2;
         vel.y *= -0.9;
         
-        vel.x *= 0.97;
+        vel.x *= 0.94;
     }
 }
 

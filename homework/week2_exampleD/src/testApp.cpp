@@ -7,14 +7,27 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     
     ofSetSmoothLighting(true);
-    pointLight.setDiffuseColor( ofFloatColor(.85, .85, .55) );
-    pointLight.setSpecularColor( ofFloatColor(1.f, 1.f, 1.f));
-    pointLight.setPosition(0,0,0);
+    
+    lookAt.x = myShape.wall / 2;
+    lookAt.y = myShape.wall / 2;
+    lookAt.z = myShape.wall / 2;
+    
+    theta = 0;
+    
+    cam.lookAt(lookAt);
+    cam.move(moveCam.x, moveCam.y, moveCam.z);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     myShape.update();
+        
+    cam.move(moveCam.x, moveCam.y, moveCam.z);
+    cam.lookAt(lookAt);
+    moveCam.x = cos(ofDegToRad(theta));
+    moveCam.z = sin(ofDegToRad(theta));
+    moveCam.y = .2;
+
 }
 
 //--------------------------------------------------------------
@@ -23,7 +36,7 @@ void testApp::draw(){
     pointLight.enable();
     
     cam.begin();
-    ofBackground(255);
+    ofBackground(0);
     
     drawBoundary();
     
@@ -35,9 +48,13 @@ void testApp::draw(){
 void testApp::drawBoundary() {
     ofEnableAlphaBlending();
     ofNoFill();
-    ofSetLineWidth(3);
+    ofSetLineWidth(1);
     ofSetColor(0, 255, 0);
-    ofDrawBox(ofPoint(myShape.wall / 2, myShape.wall / 2, myShape.wall / 2), myShape.wall);
+    
+    box.setResolution(5);
+    box.setPosition(myShape.wall / 2, myShape.wall / 2, myShape.wall / 2);
+    box.setScale(myShape.wall / 100);
+    box.drawWireframe();
 }
 
 //--------------------------------------------------------------
