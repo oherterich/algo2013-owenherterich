@@ -40,7 +40,7 @@ void Mover::update() {
 }
 
 void Mover::draw( ofColor c ) {
-    ofSetColor( c , 50);
+    ofSetColor( c , 100);
     ofCircle( pos, r );
 }
 

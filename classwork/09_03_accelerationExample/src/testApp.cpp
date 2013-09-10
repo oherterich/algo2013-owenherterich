@@ -33,6 +33,7 @@ void testApp::draw(){
     for (int i = 0; i < myMover.size(); i++) {
         ofColor c = 255 - i * (255/myMover.size());
         myMover[i].draw( c );
+        myMover[i].r = 25 - i * (25/myMover.size());
     }
 }
 
