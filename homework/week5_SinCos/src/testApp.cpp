@@ -11,7 +11,7 @@ void testApp::setup(){
     gui->addSpacer();
     gui->addSlider("Sin Modification", 0, 25, 10);
     gui->addSlider("Cos Modification", 0, 25, 10);
-    gui->addSlider("X Velocity", 1, 50, 10);
+    gui->addSlider("Amplitude", 1, 50, 10);
     gui->addSlider("Particle Size", 1, 30, 10);
     gui->addSpacer();
     gui->addButton("Reset", false);
@@ -44,7 +44,7 @@ void testApp::onGuiEvent( ofxUIEventArgs &e ) {
         cosChange = cos->getScaledValue();
     }
     
-    if ( e.getName() == "X Velocity" ) {
+    if ( e.getName() == "Amplitude" ) {
         ofxUISlider *vel = (ofxUISlider*)e.widget;
         velX = vel->getScaledValue();
     }
