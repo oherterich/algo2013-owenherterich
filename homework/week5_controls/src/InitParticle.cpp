@@ -22,6 +22,9 @@ InitParticle::InitParticle(float velA, float velB, float _size, ofColor _hue) {
 }
 
 void InitParticle::update() {
+    float noise = ofNoise(pos.x * 0.01, pos.y * 0.01, ofGetElapsedTimef() * 0.1) * 10.0;
+    pos += ofVec3f( cos(noise), sin(noise));
+    
     pos += vel;
     vel *= 0.96;
     rotation += rotation;

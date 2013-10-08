@@ -25,5 +25,7 @@ class testApp : public ofBaseApp{
     
     vector<Particle> particleList;
     vector<Mover> moverList;
-		
+    
+    bool attract;
+    		
 };

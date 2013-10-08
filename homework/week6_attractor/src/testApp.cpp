@@ -15,19 +15,21 @@ void testApp::setup(){
         Mover tmp;
         moverList.push_back( tmp );
     }
+    
+    attract = false;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     for (vector<Particle>::iterator it = particleList.begin(); it != particleList.end(); it++) {
         
-        for (int i = 0; i < moverList.size(); i++) {
-            it->attractForce(moverList[i].pos.x, moverList[i].pos.y, moverList[i].rAttract, moverList[i].sAttract);
-            it->repulseForce(moverList[i].pos.x, moverList[i].pos.y, moverList[i].rRepulse, moverList[i].sRepulse);
+        if (attract) {
+            for (int i = 0; i < moverList.size(); i++) {
+                it->attractForce(moverList[i].pos.x, moverList[i].pos.y, moverList[i].rAttract, moverList[i].sAttract);
+                it->repulseForce(moverList[i].pos.x, moverList[i].pos.y, moverList[i].rRepulse, moverList[i].sRepulse);
+            }
         }
-//        it->attractForce( mouseX, mouseY, 500, 0.2 );
-//        it->repulseForce( mouseX, mouseY, 50, 20.0 );
-      //  it->dampingForce();
+
         it->update();
     }
     
@@ -55,7 +57,9 @@ void testApp::addParticle() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    if (key == 'A' || key == 'a') {
+        attract = !attract;
+    }
 }
 
 //--------------------------------------------------------------
