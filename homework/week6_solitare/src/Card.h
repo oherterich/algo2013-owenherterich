@@ -12,7 +12,7 @@
 
 class Card {
 public:
-    Card( ofImage &tmpImg, ofVec2f _pos, ofVec2f _vel);
+    Card( ofImage *tmpImg, ofVec2f _pos, ofVec2f _vel);
     void update();
     void draw();
     void addForce( ofVec2f force );

@@ -69,7 +69,7 @@ void testApp::draw(){
 
 void testApp::addCard( ofVec2f pos, ofVec2f vel, float scale ) {
     int rand = ofRandom(0, cardImages.size());
-    Card tmp(cardImages[rand], pos, vel);
+    Card tmp(&cardImages[rand], pos, vel);
     tmp.scaleFactor = scale * 0.9;
     cards.push_back( tmp );
 }

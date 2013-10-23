@@ -8,8 +8,8 @@
 
 #include "Card.h"
 
-Card::Card( ofImage &tmpImg, ofVec2f _pos, ofVec2f _vel ) {
-    img = &tmpImg;
+Card::Card( ofImage *tmpImg, ofVec2f _pos, ofVec2f _vel ) {
+    img = tmpImg;
     pos = _pos;
     vel = _vel;
     damping = 0.01;
