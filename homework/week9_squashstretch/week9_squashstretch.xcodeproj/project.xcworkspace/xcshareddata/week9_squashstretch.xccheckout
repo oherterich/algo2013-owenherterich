@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4790880B-30C1-40DF-8D4C-50DB1C1F8695</string>
+	<key>IDESourceControlProjectName</key>
+	<string>week9_squashstretch</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>64721537-C8CC-4F69-B913-A8214993CFB4</key>
+		<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>algo2013-owenherterich/homework/week9_squashstretch/week9_squashstretch.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>64721537-C8CC-4F69-B913-A8214993CFB4</key>
+		<string>../../../..</string>
+		<key>CAFFFE12-352E-4588-B15D-F3A46332974F</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CAFFFE12-352E-4588-B15D-F3A46332974F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>64721537-C8CC-4F69-B913-A8214993CFB4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>algo2013-owenherterich</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CAFFFE12-352E-4588-B15D-F3A46332974F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>of_v0.8</string>
+		</dict>
+	</array>
+</dict>
+</plist>
