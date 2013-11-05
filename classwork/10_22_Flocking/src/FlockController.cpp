@@ -37,7 +37,7 @@ void FlockController::addParticle( int numParticles ) {
     }
 }
 
-void FlockController::applyForces( float zoneRadius, float separateThreshold, float alignThreshold ) {
+void FlockController::applyForces( float zoneRadius, float separateThreshold, float alignThreshold, float separateStr, float alignStr, float attractStr ) {
     
     float zoneRadiusSq = zoneRadius * zoneRadius;
     
@@ -61,7 +61,7 @@ void FlockController::applyForces( float zoneRadius, float separateThreshold, fl
                 if ( pct < separateThreshold ) {
                     float adjustedPct = 1.0 - ofMap( pct, 0.0, separateThreshold, 0.0, 1.0 );
                     
-                    ofVec3f F = dir.normalized() * adjustedPct * 0.01;
+                    ofVec3f F = dir.normalized() * adjustedPct * separateStr;
                     
                     b1->applyForce( F );
                     b2->applyForce( -F );
@@ -70,11 +70,23 @@ void FlockController::applyForces( float zoneRadius, float separateThreshold, fl
                 //align
                 else if ( pct < alignThreshold ) {
                     
+                    float adjustedPct = 1.0 - ofMap( pct, separateThreshold, alignThreshold, 0.0, 1.0 );
+                    
+                    float F = adjustedPct * alignStr;
+                    
+                    b1->applyForce( b2->vel.normalized() * F );
+                    b2->applyForce( b1->vel.normalized() * F );
                 }
                 
                 //attract
                 else {
                     
+                    float adjustedPct = ofMap( pct, alignThreshold, 1.0, 0.0, 1.0);
+                    
+                    ofVec3f F = dir.normalized() * adjustedPct * attractStr;
+                    
+                    b1->applyForce( -F );
+                    b2->applyForce( F );
                 }
             }
         }
@@ -83,9 +95,7 @@ void FlockController::applyForces( float zoneRadius, float separateThreshold, fl
 }
 
 void FlockController::update() {
-    
-    applyForces(300);
-    
+        
     for ( int i = 0; i < boidList.size(); i++) {
         boidList[i].pullToCenter( ofVec3f(0,0,0) );
         boidList[i].update();

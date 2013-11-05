@@ -7,13 +7,14 @@ void testApp::setup(){
     ofEnableDepthTest();
     ofBackground( 0 );
     
-    cam.setDistance( 100 );
+    cam.setDistance( 1000 );
     
     flocker.addParticle(500);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
+    flocker.applyForces(150, 0.4, 0.75, 0.007, 0.003, 0.09);
     flocker.update();
 }
 

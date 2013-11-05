@@ -9,7 +9,7 @@
 #include "Boid.h"
 
 Boid::Boid() {
-    damping = ofRandom(0.96, 0.99);
+    damping = ofRandom(0.95, 0.97);
 }
 
 void Boid::applyForce(ofVec3f force) {
@@ -23,7 +23,7 @@ void Boid::pullToCenter(ofVec3f center) {
     
     if (dist > maxDistance) {
         dir.normalize();
-        vel -= dir * (dist / maxDistance) * 0.0001f;
+        vel -= dir * (dist / maxDistance) * 0.001f;
     }
 }
 
