@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BFC05B04-598B-4092-AE96-653E50994E14</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Week11_OSCSender</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0CB5B1C8-DB03-419E-B222-F1C88FCC27F6</key>
+		<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>algo2013-owenherterich/classwork/Week11_OSCSender/Week11_OSCSender.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0CB5B1C8-DB03-419E-B222-F1C88FCC27F6</key>
+		<string>../../../..</string>
+		<key>D38085B2-DE12-462F-8D6C-BECABE418FA6</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D38085B2-DE12-462F-8D6C-BECABE418FA6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0CB5B1C8-DB03-419E-B222-F1C88FCC27F6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>algo2013-owenherterich</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D38085B2-DE12-462F-8D6C-BECABE418FA6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>of_v0.8</string>
+		</dict>
+	</array>
+</dict>
+</plist>
