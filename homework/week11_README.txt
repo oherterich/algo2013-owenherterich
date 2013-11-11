@@ -1,0 +1,2 @@
+***NOTE***
+I spent about three hours creating an animation in Duration, but when I went to load it again it hadn't saved anything. I'm not sure why this happened, because I clicked the save button many times. Anyway, I thought I'd let you know why the Duration file basically has nothing in it. Very, very frustrating.
