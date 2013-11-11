@@ -152,7 +152,6 @@ void testApp::drawFbos() {
 void testApp::addParticle() {
     Particle tmp;
     particleList.push_back( tmp );
-    ofMap()
 }
 
 //--------------------------------------------------------------

@@ -1,0 +1,34 @@
+<tracks>
+    <page>
+        <name>Page One</name>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_.xml</xmlFileName>
+            <trackName>curves</trackName>
+            <displayName>curves</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>9.999998093</min>
+            <max>100.000000000</max>
+        </track>
+    </page>
+</tracks>
+<timelineSettings>
+    <duration>00:00:30:000</duration>
+    <playhead>00:00:10:514</playhead>
+    <inpoint>00:00:00:046</inpoint>
+    <outpoint>00:00:30:000</outpoint>
+    <loop>0</loop>
+</timelineSettings>
+<projectSettings>
+    <useBPM>0</useBPM>
+    <bpm>120.000000000</bpm>
+    <snapToBPM>1</snapToBPM>
+    <snapToKeys>0</snapToKeys>
+    <oscInEnabled>1</oscInEnabled>
+    <oscOutEnabled>1</oscOutEnabled>
+    <oscInPort>12346</oscInPort>
+    <oscIP>localhost</oscIP>
+    <oscOutPort>12345</oscOutPort>
+    <oscRate>30.000000000</oscRate>
+</projectSettings>
