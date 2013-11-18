@@ -1,0 +1,31 @@
+Multiplayer Snake
+
+This project is a game based on the classic arcade game Snake. In the original game, the player controls a "snake" by selecting the direction that it is traveling. The player attempts to gather small objects on the screen, but each time that the object is collected the snake grows longer, making it more difficult to control.
+
+In this version, most of the original functionality would be maintained for one player. The player would earn points by staying alive longer. 
+
+The second player would have a more sinister role. This player would be trying to thwart the efforts of player 1 by placing various obstacles in the scene. Player 1 would have to avoid these obstacles. Player 2 would probably receive these obstacles on a timer, and they would fade out after being in the scene for a certain amount of time.
+
+More interesting gameplay would be created through the addition of power-ups in the game. Player 1 would have to collect the power ups on the screen, and player 2 might receive these power ups through a timer. Each player can trigger these power ups at any time, ala Mario Kart. Some possible examples of power-ups:
+
+Player 1:
+-Bonus points
+-Time slow
+-Shorter snake length
+-Invincible
+-Bomb (destroys all obstacles)
+
+Player 2:
+-Time speed up
+-Snake length increase
+-Make snake invisible
+-Ultimate/bigger obstacle
+-Scene shrink
+
+This game would be played on two different computers (or screens). Player one would see the shadow of where player 2 is about to place an obstacle, so that it can be avoided. Player 2 would see the entire scene. Neither player could see the others' power ups, so a strategy can be developed.
+
+I don't think that this game is going to blow anyone's mind, but I think that it will be fun. The art style / mood I'm going for is something akin to Super Hexagon ( http://www.youtube.com/watch?v=2sz0mI_6tLQ ). 
+
+Anyway, let me know what you think!
+
+- O

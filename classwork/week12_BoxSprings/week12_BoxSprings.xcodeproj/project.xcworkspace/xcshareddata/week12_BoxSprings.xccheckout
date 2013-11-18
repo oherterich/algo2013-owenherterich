@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6E4C2B98-F6CE-4169-94CD-EF7849D8577F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>week12_BoxSprings</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>44BD01FB-6984-4C76-9540-ECD19C2271C6</key>
+		<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+		<key>98B66388-3A25-4E26-A398-EAC90BC7D154</key>
+		<string>https://github.com/vanderlin/ofxBox2d.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>algo2013-owenherterich/classwork/week12_BoxSprings/week12_BoxSprings.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>44BD01FB-6984-4C76-9540-ECD19C2271C6</key>
+		<string>../../../..</string>
+		<key>4EF36E5F-8A86-48D1-A775-BC072E8AD928</key>
+		<string>../../../../..</string>
+		<key>98B66388-3A25-4E26-A398-EAC90BC7D154</key>
+		<string>../../../../../addons/ofxBox2d</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4EF36E5F-8A86-48D1-A775-BC072E8AD928</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>44BD01FB-6984-4C76-9540-ECD19C2271C6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>algo2013-owenherterich</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4EF36E5F-8A86-48D1-A775-BC072E8AD928</string>
+			<key>IDESourceControlWCCName</key>
+			<string>of_v0.8</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>98B66388-3A25-4E26-A398-EAC90BC7D154</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxBox2d</string>
+		</dict>
+	</array>
+</dict>
+</plist>

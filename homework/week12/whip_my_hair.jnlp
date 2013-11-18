@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+  spec="1.0+"
+  codebase="http://sodaplay.com"
+  >
+  	<information>
+	    <title>whip_my_hair</title>
+	    <vendor>Sodaplay user 'oherterich'.</vendor>
+	    <homepage href="/creators/oherterich/items/whip_my_hair"/>
+	    <description></description>
+	
+	    <description kind="short">whip_my_hair</description>
+	    <!--
+	    <offline-allowed/>
+	    -->
+    </information>
+
+	<resources>
+	    <j2se version="1.5+"/>
+	  	<jar href="/lib/playforge-app-runtime.jar"/>
+	  	<jar href="/lib/playforge-app-core.jar"/>
+	  	<jar href="/lib/playforge-base.jar"/>
+	  	<jar href="/lib/playforge-web-uri.jar"/>
+	  	<jar href="/lib/playforge-app-http.jar"/>
+		
+  		<jar href="/lib/creators/soda/items/constructor/latest.jar"/>
+  		  	
+	    <jar href="/lib/jdom.jar"/>
+	    <jar href="/lib/commons-logging.jar"/>
+	 </resources>
+	 <application-desc main-class="net.playforge.app.base.Launch">
+	    <argument>-store=http://sodaplay.com</argument>
+		<argument>-session=835A30F2D57A20B2B523F2A9F03C0B23</argument>
+	    <argument>-launchdesc=  Constructor
+ </argument>
+	    <argument>-launchcomponentids=1142
+</argument>
+	    <argument>-app=com.sodaplay.soda.constructor2.ConstructorApplication</argument>
+	    <argument>-context=FORGIVING</argument>
+	    <argument>-model=oherterich/whip_my_hair</argument>
+		<argument>classpath:/com/sodaplay/soda/constructor2/Constructor.xml</argument>
+	</application-desc>
+</jnlp>
