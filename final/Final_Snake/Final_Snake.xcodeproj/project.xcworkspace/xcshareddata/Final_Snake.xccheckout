@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D7C3437F-B788-4D24-A125-97A272A4C22F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Final_Snake</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>73000E76-9F88-4A7A-9C9D-042011CF1542</key>
+		<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+		<key>D2B7B6DE-7242-405A-80C1-F222D4F223CE</key>
+		<string>https://github.com/rezaali/ofxUI.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>algo2013-owenherterich/final/Final_Snake/Final_Snake.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>73000E76-9F88-4A7A-9C9D-042011CF1542</key>
+		<string>../../../..</string>
+		<key>D2B7B6DE-7242-405A-80C1-F222D4F223CE</key>
+		<string>../../../../../addons/ofxUI</string>
+		<key>E96E8939-17C9-45B2-9C4D-ED17B0AEA485</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/oherterich/algo2013-owenherterich.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E96E8939-17C9-45B2-9C4D-ED17B0AEA485</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>73000E76-9F88-4A7A-9C9D-042011CF1542</string>
+			<key>IDESourceControlWCCName</key>
+			<string>algo2013-owenherterich</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E96E8939-17C9-45B2-9C4D-ED17B0AEA485</string>
+			<key>IDESourceControlWCCName</key>
+			<string>of_v0.8</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D2B7B6DE-7242-405A-80C1-F222D4F223CE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxUI</string>
+		</dict>
+	</array>
+</dict>
+</plist>
