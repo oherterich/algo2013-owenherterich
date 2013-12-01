@@ -76,13 +76,15 @@ void testApp::updateGameplay() {
     float dt = ofGetElapsedTimef() - lastTime;
     
     
-    if (snakePlayer == 1) {
+  //  if (snakePlayer == 1) {
     
         //Add to the length of the snake every second
         currentTime = (int)ofGetElapsedTimef();
         
         if (prevTime != currentTime) {
             snake.addTail();
+            obstacle.obSize += 2.0;
+            obstacle.obLife += 5.0;
         }
         
         prevTime = currentTime;
@@ -91,15 +93,15 @@ void testApp::updateGameplay() {
         snake.update( dt * timeScale );
         
         //Loop through obstacles and see if the snake has collided
-        for( int i = 0; i < obstacles.size(); i++ ) {
-            snake.checkCollision(obstacles[i], obstacleSize);
+        for( int i = 0; i < obstacle.obList.size(); i++ ) {
+            snake.checkCollision(obstacle.obList[i].pos, obstacle.obSize);
         }
         
-    }
+  //  }
     
-    else if ( snakePlayer == 2 ) {
+   // else if ( snakePlayer == 2 ) {
         obstacle.update();
-    }
+   // }
     
     //Depending on who is playing as the snake, add to the score
     if ( snakePlayer == 1) {
@@ -211,12 +213,12 @@ void testApp::drawGameplay() {
     bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 830, 40);
     bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 830, 80);
     
-    if ( snakePlayer == 1 ) {
+   // if ( snakePlayer == 1 ) {
         snake.draw();
-    }
-    else if ( snakePlayer == 2 ) {
+   // }
+   // else if ( snakePlayer == 2 ) {
         obstacle.draw();
-    }
+   // }
     
     for( int i = 0; i < obstacles.size(); i++ ) {
         ofSetColor(255,255,0);
@@ -276,7 +278,11 @@ void testApp::resetGameplay() {
     timeLeft = 5;
     startCountdown = ofGetElapsedTimef();
     
-    obstacles.clear();
+    obstacle.obList.clear();
+    obstacle.obSize = 50.0;
+    obstacle.obLife = 250.0;
+    obstacle.moveForce = 5.0;
+    
     snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.end() - 25);
     snake.pos.set(ofGetWindowSize() / 2);
     
@@ -347,10 +353,12 @@ void testApp::keyPressed(int key){
             
         case 1:
             if ( snakePlayer == 1 ) {
-                snake.checkKeyPress( key );
+                snake.checkKeyPress( key, 1 );
+                obstacle.checkKeyPress( key, 2 );
             }
             else if ( snakePlayer == 2 ) {
-                obstacle.checkKeyPress( key );
+                snake.checkKeyPress( key, 2 );
+                obstacle.checkKeyPress( key, 1 );
             }
             break;
             

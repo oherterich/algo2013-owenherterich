@@ -59,8 +59,8 @@ void Snake::checkSelfCollision() {
 
 void Snake::addTail() {
         ofVec2f p;
-        p.set(snakePos[snakePos.size() - 1].x - snakeSize, snakePos[snakePos.size() - 1].y);
-        snakePos.push_back(p);
+        p.set(snakePos[snakePos.size() - 1].x, snakePos[snakePos.size() - 1].y);
+        snakePos.push_back(p);    
 }
 
 void Snake::updateTail() {
@@ -95,25 +95,48 @@ void Snake::screenBoundaryCheck() {
     }
 }
 
-void Snake::checkKeyPress( int key ) {
-    if (key == OF_KEY_UP) {
-        vel.set(0, -desiredSpeed);
-        addForce( ofVec2f(0, -turnForce) );
+void Snake::checkKeyPress( int key, int player ) {
+    if (player == 1) {
+        if (key == OF_KEY_UP) {
+            vel.set(0, -desiredSpeed);
+            addForce( ofVec2f(0, -turnForce) );
+        }
+        
+        if (key == OF_KEY_RIGHT) {
+            vel.set(desiredSpeed, 0);
+            addForce( ofVec2f(turnForce, 0) );
+        }
+        
+        if (key == OF_KEY_DOWN) {
+            vel.set(0, desiredSpeed);
+            addForce( ofVec2f(0, turnForce) );
+        }
+        
+        if (key == OF_KEY_LEFT) {
+            vel.set(-desiredSpeed, 0);
+            addForce( ofVec2f(-turnForce, 0) );
+        }
     }
-    
-    if (key == OF_KEY_RIGHT) {
-        vel.set(desiredSpeed, 0);
-        addForce( ofVec2f(turnForce, 0) );
-    }
-    
-    if (key == OF_KEY_DOWN) {
-        vel.set(0, desiredSpeed);
-        addForce( ofVec2f(0, turnForce) );
-    }
-    
-    if (key == OF_KEY_LEFT) {
-        vel.set(-desiredSpeed, 0);
-        addForce( ofVec2f(-turnForce, 0) );
+    else if (player == 2) {
+        if (key == 'w') {
+            vel.set(0, -desiredSpeed);
+            addForce( ofVec2f(0, -turnForce) );
+        }
+        
+        if (key == 'd') {
+            vel.set(desiredSpeed, 0);
+            addForce( ofVec2f(turnForce, 0) );
+        }
+        
+        if (key == 's') {
+            vel.set(0, desiredSpeed);
+            addForce( ofVec2f(0, turnForce) );
+        }
+        
+        if (key == 'a') {
+            vel.set(-desiredSpeed, 0);
+            addForce( ofVec2f(-turnForce, 0) );
+        }
     }
 }
 

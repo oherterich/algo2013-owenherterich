@@ -19,7 +19,7 @@ class Obstacle {
     
         void addForce( ofVec2f force );
         void addDamping();
-        void checkKeyPress( int key );
+        void checkKeyPress( int key, int player );
         void screenBoundaryCheck();
         void addObstacle();
         void updateObstacle();
@@ -30,9 +30,12 @@ class Obstacle {
         vector<ObstacleShape> obList;
     
         float obSize;
+        float obLife;
     
         float moveForce;
         float damping;
+    
+        float lastObTime;
     
         ofColor c;
 };

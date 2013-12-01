@@ -13,9 +13,12 @@ Obstacle::Obstacle() {
     vel.set( 0 );
     
     obSize = 50.0;
+    obLife = 250.0;
     
-    moveForce = 5.0;
+    moveForce = 10.0;
     damping = 0.95;
+    
+    lastObTime = ofGetElapsedTimef();
     
     c.set(255,255,0);
 }
@@ -28,25 +31,49 @@ void Obstacle::addDamping() {
     vel *= damping;
 }
 
-void Obstacle::checkKeyPress( int key ) {
+void Obstacle::checkKeyPress( int key, int player ) {
+    if (player == 1) {
     if ( key == OF_KEY_UP) {
-        addForce( ofVec2f(0, -moveForce) );
+            addForce( ofVec2f(0, -moveForce) );
+        }
+        
+        if ( key == OF_KEY_RIGHT) {
+            addForce( ofVec2f(moveForce, 0) );
+        }
+        
+        if ( key == OF_KEY_DOWN) {
+            addForce( ofVec2f(0, moveForce) );
+        }
+        
+        if ( key == OF_KEY_LEFT) {
+            addForce( ofVec2f(-moveForce, 0) );
+        }
+        
+        if ( key == OF_KEY_ALT ) {
+            addObstacle();
+        }
     }
     
-    if ( key == OF_KEY_RIGHT) {
-        addForce( ofVec2f(moveForce, 0) );
-    }
-    
-    if ( key == OF_KEY_DOWN) {
-        addForce( ofVec2f(0, moveForce) );
-    }
-    
-    if ( key == OF_KEY_LEFT) {
-        addForce( ofVec2f(-moveForce, 0) );
-    }
-    
-    if ( key == ' ' ) {
-        addObstacle();
+    if (player == 2) {
+        if ( key == 'w') {
+            addForce( ofVec2f(0, -moveForce) );
+        }
+        
+        if ( key == 'd') {
+            addForce( ofVec2f(moveForce, 0) );
+        }
+        
+        if ( key == 's') {
+            addForce( ofVec2f(0, moveForce) );
+        }
+        
+        if ( key == 'a') {
+            addForce( ofVec2f(-moveForce, 0) );
+        }
+        
+        if ( key == ' ' ) {
+            addObstacle();
+        }
     }
 }
 
@@ -69,11 +96,15 @@ void Obstacle::screenBoundaryCheck() {
 }
 
 void Obstacle::addObstacle() {
-    ObstacleShape ob(obSize);
-    ob.pos.set( pos );
-    ob.life = 250;
-    
-    obList.push_back( ob );
+    if (ofGetElapsedTimef() - lastObTime > 0.4) {
+        ObstacleShape ob(obSize);
+        ob.pos.set( pos );
+        ob.life = obLife;
+        
+        obList.push_back( ob );
+        
+        lastObTime = ofGetElapsedTimef();
+    }
 }
 
 void Obstacle::updateObstacle() {
