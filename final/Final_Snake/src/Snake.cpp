@@ -57,6 +57,13 @@ void Snake::checkSelfCollision() {
     }
 }
 
+void Snake::checkBoundaryCollision() {
+    
+    if (pos.x >= ofGetWindowWidth() || pos.x <= 0 || pos.y >= ofGetWindowHeight() || pos.y <= 0) {
+        bHasCollided = true;
+    }
+}
+
 void Snake::addTail() {
         ofVec2f p;
         p.set(snakePos[snakePos.size() - 1].x, snakePos[snakePos.size() - 1].y);

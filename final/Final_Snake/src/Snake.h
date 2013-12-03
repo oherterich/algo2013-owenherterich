@@ -20,6 +20,7 @@ class Snake {
         void addDamping();
         void checkCollision( ofVec2f p, float size );
         void checkSelfCollision();
+        void checkBoundaryCollision();
     
         void addTail();
         void updateTail();

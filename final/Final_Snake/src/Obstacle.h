@@ -14,7 +14,7 @@
 class Obstacle {
     public:
         Obstacle();
-        void update();
+        void update( float dt );
         void draw();
     
         void addForce( ofVec2f force );

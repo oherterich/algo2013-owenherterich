@@ -14,6 +14,7 @@ void testApp::setup(){
     player2Score = 0;
     
     snakePlayer = 1;
+    scoreModifier = 13;
     
     ofTrueTypeFont::setGlobalDpi(72);
     bitdustLarge.loadFont("fonts/bitdust2.ttf", 72);
@@ -22,6 +23,13 @@ void testApp::setup(){
     
     lastTime = ofGetElapsedTimef();
     timeScale = 1.0;
+    currentTimeScale = 1.0;
+    
+    currentSnakeLength = 25;
+    currentObstacleSize = 50;
+    
+    powerupStartTime = 0.0;
+    powerupTimeBetween = 5.0;
     
     bIsPlayer1Ready = false;
     bIsPlayer2Ready = false;
@@ -64,6 +72,7 @@ void testApp::updateIntro() {
     if ( timeLeft <= 0 ) {
         gameState = 1;
         startGameplayTime = ofGetElapsedTimef();
+        powerupStartTime = ofGetElapsedTimef();
     }
 }
 
@@ -75,40 +84,108 @@ void testApp::updateGameplay() {
     //Delta Time Stuff
     float dt = ofGetElapsedTimef() - lastTime;
     
+    //Add to the length of the snake every second
+    currentTime = (int)ofGetElapsedTimef();
     
-  //  if (snakePlayer == 1) {
-    
-        //Add to the length of the snake every second
-        currentTime = (int)ofGetElapsedTimef();
-        
+    //If short powerup is active, cut the length of the snake in half
+    if (bIsShort) {
+        //Only reduce length once...otherwise length will end up at 1
+        if (snake.snakePos.size()-1 > currentSnakeLength / 2) {
+            snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.begin() + currentSnakeLength / 2);
+        }
+    }
+    //If long powerup is active, double length of snake
+    else if (bIsLong) {
+        //Only add to length once...otherwise that shit cray
+        if (snake.snakePos.size() - 1 < currentSnakeLength) {
+            for (int i = 0; i < currentSnakeLength / 2; i++) {
+                snake.addTail();
+            }
+        }
+    }
+    else {
         if (prevTime != currentTime) {
             snake.addTail();
             obstacle.obSize += 2.0;
             obstacle.obLife += 5.0;
         }
         
-        prevTime = currentTime;
-        
-        //Update the snake
-        snake.update( dt * timeScale );
-        
-        //Loop through obstacles and see if the snake has collided
+        currentSnakeLength = snake.snakePos.size();
+    }
+    
+    prevTime = currentTime;
+    
+    //Update the snake
+    snake.update( dt * timeScale );
+    
+    //Loop through obstacles and see if the snake has collided
+    //Only check the collision if the invincible powerup is not active though
+    if (!bIsInvincible) {
         for( int i = 0; i < obstacle.obList.size(); i++ ) {
             snake.checkCollision(obstacle.obList[i].pos, obstacle.obSize);
         }
-        
-  //  }
+    }
     
-   // else if ( snakePlayer == 2 ) {
-        obstacle.update();
-   // }
+    //If wall bonus, check to see if snake has collided with wall
+    if (bIsWall) {
+        snake.checkBoundaryCollision();
+    }
+    
+    //Update powerup stuff
+    managePowerups();
+
+    for (int i = 0; i < powerups.size(); i++) {
+        if ( powerups[i].isDead() ) {
+            powerups.erase(powerups.begin() + i);
+        }
+        else {
+            powerups[i].checkCollision(snake.pos, obstacle.pos);
+            powerups[i].update();
+        }
+    }
+    
+    if (ofGetElapsedTimef() - powerupStartTime > powerupTimeBetween) {
+        Powerup p;
+        powerups.push_back( p );
+        
+        powerupStartTime = ofGetElapsedTimef();
+    }
+    
+    //If bomb powerup is actived, erase all obstacles on screen
+    if (bIsBomb) {
+        explodeObstacles();
+    }
+    
+    
+    //Obstacle stuff
+    obstacle.update( dt * timeScale );
+    
+    if (bIsLarge) {
+        obstacle.obSize = currentObstacleSize * 2;
+    }
+    else {
+        obstacle.obSize = currentObstacleSize;
+        currentObstacleSize = obstacle.obSize;
+    }
     
     //Depending on who is playing as the snake, add to the score
     if ( snakePlayer == 1) {
-        player1Score += 13;
+        //If the bonus points powerup is active, you get DOUBLE POINTS!
+        if (bIsBonus) {
+            player1Score += scoreModifier * 2;
+        }
+        else {
+            player1Score += scoreModifier;
+        }
     }
     else if ( snakePlayer == 2) {
-        player2Score += 13;
+        //If the bonus points powerup is active, you get DOUBLE POINTS!
+        if (bIsBonus) {
+            player2Score += scoreModifier * 2;
+        }
+        else {
+            player2Score += scoreModifier;
+        }
     }
     
     //If there is a collision, go to the next state
@@ -121,7 +198,21 @@ void testApp::updateGameplay() {
     }
     
     lastTime = ofGetElapsedTimef();
-    timeScale += .001;
+    
+    //If slow powerup is active, we pull a Neo and go into bullet-time.
+    if (bIsSlow) {
+        timeScale = currentTimeScale / 2;
+        timeScale += 0.005;
+    }
+    //If fast powerup is active, speed that shit up.
+    else if (bIsFast) {
+        timeScale = currentTimeScale * 1.5;
+    }
+    else {
+        timeScale = currentTimeScale;
+        timeScale += .001;
+        currentTimeScale = timeScale;
+    }
 }
 
 void testApp::updateInterlude() {
@@ -213,16 +304,58 @@ void testApp::drawGameplay() {
     bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 830, 40);
     bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 830, 80);
     
-   // if ( snakePlayer == 1 ) {
+    if (!bIsInvisible) {
         snake.draw();
-   // }
-   // else if ( snakePlayer == 2 ) {
-        obstacle.draw();
-   // }
+    }
+    obstacle.draw();
+    
+    ofSetColor(255);
+    if (bIsBonus) {
+        ofDrawBitmapString("Bonus", ofPoint(20,100));
+    }
+    if (bIsShort) {
+        ofDrawBitmapString("Short", ofPoint(20,120));
+    }
+    if (bIsSlow) {
+        ofDrawBitmapString("Slow", ofPoint(20,140));
+    }
+    if (bIsInvincible) {
+        ofDrawBitmapString("Invincible", ofPoint(20,160));
+    }
+    if (bIsBomb) {
+        ofDrawBitmapString("Bomb", ofPoint(20,180));
+    }
+    if (bIsFast) {
+        ofDrawBitmapString("Fast", ofPoint(20,200));
+    }
+    if (bIsLong) {
+        ofDrawBitmapString("Long", ofPoint(20,220));
+    }
+    if (bIsLarge) {
+        ofDrawBitmapString("Large", ofPoint(20,240));
+    }
+    if (bIsInvisible) {
+        ofDrawBitmapString("Invisible", ofPoint(20,260));
+    }
+    if (bIsWall) {
+        ofDrawBitmapString("Wall", ofPoint(20,280));
+    }
+    
+    if (bIsWall) {
+        ofNoFill();
+        ofSetLineWidth( 10.0 );
+        ofSetColor(255,0,0);
+        ofRect(ofGetWindowSize() / 2, ofGetWindowWidth(), ofGetWindowHeight());
+    }
+    
     
     for( int i = 0; i < obstacles.size(); i++ ) {
         ofSetColor(255,255,0);
         ofRect(obstacles[i], obstacleSize, obstacleSize);
+    }
+    
+    for ( int i =0; i < powerups.size(); i++) {
+        powerups[i].draw();
     }
 }
 
@@ -289,6 +422,89 @@ void testApp::resetGameplay() {
     timeScale = 1.0;
 }
 
+void testApp::managePowerups() {
+    
+    for (int i = 0; i < powerups.size(); i++) {
+        //If the powerup is unactive, turn the switch to false
+        if (!powerups[i].bIsActive) {
+            //Snake Powerups
+            if (powerups[i].name == "Bonus") {
+                bIsBonus = false;
+            }
+            else if (powerups[i].name == "Short") {
+                bIsShort = false;
+            }
+            else if (powerups[i].name == "Slow") {
+                bIsSlow = false;
+            }
+            else if (powerups[i].name == "Invincible") {
+                bIsInvincible = false;
+            }
+            else if (powerups[i].name == "Bomb") {
+                bIsBomb = false;
+            }
+            
+            //Obstacle Powerups
+            else if (powerups[i].name == "Fast") {
+                bIsFast = false;
+            }
+            else if (powerups[i].name == "Long") {
+                bIsLong = false;
+            }
+            else if (powerups[i].name == "Large") {
+                bIsLarge = false;
+            }
+            else if (powerups[i].name == "Invisible") {
+                bIsInvisible = false;
+            }
+            else if (powerups[i].name == "Wall") {
+                bIsWall = false;
+            }
+        }
+        //If it is active, override the switch to false and make it true
+        else if (powerups[i].bIsActive) {
+            //Snake Powerups
+            if (powerups[i].name == "Bonus") {
+                bIsBonus = true;
+            }
+            else if (powerups[i].name == "Short") {
+                bIsShort = true;
+            }
+            else if (powerups[i].name == "Slow") {
+                bIsSlow = true;
+            }
+            else if (powerups[i].name == "Invincible") {
+                bIsInvincible = true;
+            }
+            else if (powerups[i].name == "Bomb") {
+                bIsBomb = true;
+            }
+            
+            //Obstacle Powerups
+            else if (powerups[i].name == "Fast") {
+                bIsFast = true;
+            }
+            else if (powerups[i].name == "Long") {
+                bIsLong = true;
+            }
+            else if (powerups[i].name == "Large") {
+                bIsLarge = true;
+            }
+            else if (powerups[i].name == "Invisible") {
+                bIsInvisible = true;
+            }
+            else if (powerups[i].name == "Wall") {
+                bIsWall = true;
+            }
+        }
+    }
+}
+
+void testApp::explodeObstacles() {
+    for (int i = 0; i < obstacle.obList.size(); i++) {
+        obstacle.obList.clear();
+    }
+}
 
 
 //--------------------------------------------------------------
@@ -390,9 +606,8 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
 
-    ofVec2f p;
-    p.set(x, y);
-    obstacles.push_back( p );
+    Powerup p;
+    powerups.push_back( p );
 }
 
 //--------------------------------------------------------------

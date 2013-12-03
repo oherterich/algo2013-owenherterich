@@ -6,6 +6,7 @@
 
 #include "Snake.h"
 #include "Obstacle.h"
+#include "Powerup.h"
 
 class testApp : public ofBaseApp{
 
@@ -69,10 +70,16 @@ class testApp : public ofBaseApp{
     void drawGameplay();
     void resetGameplay();
     
-    float startGameplayTime;
-    float elapsedGameplayTime;
+    float startGameplayTime; //When did you start round 1?
+    float elapsedGameplayTime; //How long have you been playing?
     
-    int snakePlayer;
+    int snakePlayer; //Who is playing as the snake?
+    
+    int scoreModifier; //Increase for faster points
+    float currentTimeScale; //Keep track of orig. game speed
+    
+    int currentSnakeLength; //Keep track of orig. snake length
+    int currentObstacleSize; //Keep track of orig. obst. size
     
     /*********************
         INTERLUDE  STUFF
@@ -88,6 +95,30 @@ class testApp : public ofBaseApp{
     void drawEnd();
     
     /*********************
+     POWERUP STUFF
+     **********************/
+    
+    void managePowerups(); //Turns on/off powerup switches
+    void explodeObstacles(); //Removes obstacles (w/ bomb)
+    
+    //Snake Powerups
+    bool bIsBonus = false; //DONE
+    bool bIsShort = false; //DONE
+    bool bIsSlow = false; //DONE
+    bool bIsInvincible = false; //DONE
+    bool bIsBomb = false; //DONE
+    
+    //Obstacle Powerups
+    bool bIsFast = false; //DONE
+    bool bIsLong = false; //DONE
+    bool bIsLarge = false; //DONE
+    bool bIsInvisible = false; //DONE
+    bool bIsWall = false; //DONE
+    
+    float powerupStartTime;
+    float powerupTimeBetween;
+    
+    /*********************
         OSC STUFF
      **********************/
     ofxOscSender mSender;
@@ -99,6 +130,7 @@ class testApp : public ofBaseApp{
     
     Snake snake;
     Obstacle obstacle;
+    vector<Powerup> powerups;
     
     vector<ofVec2f> obstacles;
     float obstacleSize;

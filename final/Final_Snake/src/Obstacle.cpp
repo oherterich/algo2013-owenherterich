@@ -15,7 +15,7 @@ Obstacle::Obstacle() {
     obSize = 50.0;
     obLife = 250.0;
     
-    moveForce = 10.0;
+    moveForce = 12.0;
     damping = 0.95;
     
     lastObTime = ofGetElapsedTimef();
@@ -34,19 +34,23 @@ void Obstacle::addDamping() {
 void Obstacle::checkKeyPress( int key, int player ) {
     if (player == 1) {
     if ( key == OF_KEY_UP) {
-            addForce( ofVec2f(0, -moveForce) );
+            addForce( ofVec2f(0, -moveForce / 2) );
+            vel.set( 0, -moveForce );
         }
         
         if ( key == OF_KEY_RIGHT) {
-            addForce( ofVec2f(moveForce, 0) );
+            addForce( ofVec2f(moveForce / 2, 0) );
+            vel.set( moveForce, 0 );
         }
         
         if ( key == OF_KEY_DOWN) {
-            addForce( ofVec2f(0, moveForce) );
+            addForce( ofVec2f(0, moveForce / 2) );
+            vel.set( 0, moveForce );
         }
         
         if ( key == OF_KEY_LEFT) {
-            addForce( ofVec2f(-moveForce, 0) );
+            addForce( ofVec2f(-moveForce / 2, 0) );
+            vel.set( -moveForce, 0 );
         }
         
         if ( key == OF_KEY_ALT ) {
@@ -56,19 +60,23 @@ void Obstacle::checkKeyPress( int key, int player ) {
     
     if (player == 2) {
         if ( key == 'w') {
-            addForce( ofVec2f(0, -moveForce) );
+            addForce( ofVec2f(0, -moveForce / 2) );
+            vel.set( 0, -moveForce );
         }
         
         if ( key == 'd') {
-            addForce( ofVec2f(moveForce, 0) );
+            addForce( ofVec2f(moveForce / 2, 0) );
+            vel.set( moveForce, 0 );
         }
         
         if ( key == 's') {
-            addForce( ofVec2f(0, moveForce) );
+            addForce( ofVec2f(0, moveForce / 2) );
+            vel.set( 0, moveForce );
         }
         
         if ( key == 'a') {
-            addForce( ofVec2f(-moveForce, 0) );
+            addForce( ofVec2f(-moveForce / 2, 0) );
+            vel.set( -moveForce, 0 );
         }
         
         if ( key == ' ' ) {
@@ -124,16 +132,19 @@ void Obstacle::drawObstacle() {
     }
 }
 
-void Obstacle::update() {
+void Obstacle::update( float dt ) {
     screenBoundaryCheck();
     
     updateObstacle();
     
     vel += acc;
-    pos += vel;
+    pos += (vel * dt * 50);
     
     acc.set(0);
-    addDamping();
+    
+    if (vel.x > 10.0 || vel.x < -10.0 || vel.y > 10.0 || vel.y < -10.0) {
+        addDamping();
+    }
 }
 
 void Obstacle::draw() {
