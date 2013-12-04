@@ -13,9 +13,9 @@ Obstacle::Obstacle() {
     vel.set( 0 );
     
     obSize = 50.0;
-    obLife = 250.0;
+    obLife = 350.0;
     
-    moveForce = 12.0;
+    moveForce = 11.0;
     damping = 0.95;
     
     lastObTime = ofGetElapsedTimef();

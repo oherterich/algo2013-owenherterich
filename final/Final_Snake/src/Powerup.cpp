@@ -8,7 +8,7 @@
 
 #include "Powerup.h"
 
-Powerup::Powerup() {
+Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
     iconSize = 100;
     trans = 255;
     age = 0;
@@ -18,69 +18,72 @@ Powerup::Powerup() {
     
     c = ofColor(255);
     
-    bIsActive = false;
+    type = _type;
     
-    int rand = ofRandom(10);
+    bIsActive = false;
+    bIsSnake = _bIsSnake;
+    
+    nameTrans = 255.0;
+    nameSize = 0.8;
+    nameHue = 20.0;
+    
+    int rand;
+    if (bIsSnake) {
+        rand = ofRandom(5);
+    }
+    else {
+        rand = ofRandom(5, 10);
+    }
     
     switch (rand) {
         case 0:
             name = "Bonus";
             img.loadImage("powerups/bonus.png");
-            bIsSnake = true;
             break;
             
         case 1:
             name = "Short";
             img.loadImage("powerups/shortsnake.png");
-            bIsSnake = true;
             break;
             
         case 2:
             name = "Slow";
             img.loadImage("powerups/timeslow.png");
-            bIsSnake = true;
             break;
             
         case 3:
             name = "Invincible";
             img.loadImage("powerups/invincible.png");
-            bIsSnake = true;
             break;
             
         case 4:
             name = "Bomb";
             img.loadImage("powerups/bomb.png");
-            bIsSnake = true;
             break;
             
         case 5:
             name = "Fast";
             img.loadImage("powerups/timefast.png");
-            bIsSnake = false;
             break;
             
         case 6:
             name = "Long";
             img.loadImage("powerups/longsnake.png");
-            bIsSnake = false;
             break;
             
         case 7:
             name = "Large";
             img.loadImage("powerups/largeobst.png");
-            bIsSnake = false;
             break;
             
         case 8:
             name = "Invisible";
             img.loadImage("powerups/invisible.png");
-            bIsSnake = false;
             break;
             
         case 9:
             name = "Wall";
             img.loadImage("powerups/wall.png");
-            bIsSnake = false;            
             break;
     }
     
@@ -107,6 +110,31 @@ void Powerup::timer() {
     if (ofGetElapsedTimef() - startActive >= timeActive) {
         bIsActive = false;
         age += 250;
+    }
+}
+
+void Powerup::drawName() {
+    if (bIsActive) {
+        float w = type->stringWidth(name) * nameSize;
+        float h = type->stringHeight(name) * nameSize;
+        
+        ofColor n;
+        n.setHsb( nameHue, 230, 255 );
+        ofSetColor( n , nameTrans);
+        ofPushMatrix();{
+            ofTranslate(ofGetWindowWidth() / 2 - w / 2, ofGetWindowHeight() / 2 + h / 2);
+            ofScale(nameSize, nameSize);
+            type->drawString(name, 0, 0);
+        }ofPopMatrix();
+        
+        nameTrans -= 6.0;
+        nameSize += 0.07;
+        if (bIsSnake) {
+            nameHue = sin(ofGetElapsedTimef() * 3.0) * 20 + 150;
+        }
+        else {
+            nameHue = sin(ofGetElapsedTimef() * 3.0) * 20 + 20;
+        }
     }
 }
 
@@ -137,6 +165,8 @@ void Powerup::draw() {
             img.draw(0,0);
         }
     }ofPopMatrix();
+    
+    drawName();
 }
 
 bool Powerup::isDead() {

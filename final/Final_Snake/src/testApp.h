@@ -119,12 +119,11 @@ class testApp : public ofBaseApp{
     float powerupTimeBetween;
     
     /*********************
-        OSC STUFF
+        AUDIO STUFF
      **********************/
-    ofxOscSender mSender;
-    ofxOscReceiver mReceiver;
-    void sendMsg();
-    void receiveMsg();
+    ofSoundPlayer mainSong;
+    
+    
     
     string nf(float number);
     

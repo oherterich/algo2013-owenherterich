@@ -36,8 +36,7 @@ void testApp::setup(){
     
     timeLeft = 5;
     
-    mSender.setup("localhost", 12345);
-    mReceiver.setup(12345);
+    mainSong.loadSound("audio/akumulator.mp3");
     
     obstacleSize = 25.0;
 }
@@ -63,6 +62,9 @@ void testApp::update(){
             break;
     }
     
+    // update the sound playing system:
+	ofSoundUpdate();
+    
 }
 
 void testApp::updateIntro() {
@@ -73,6 +75,7 @@ void testApp::updateIntro() {
         gameState = 1;
         startGameplayTime = ofGetElapsedTimef();
         powerupStartTime = ofGetElapsedTimef();
+        //¨mainSong.play();
     }
 }
 
@@ -145,10 +148,12 @@ void testApp::updateGameplay() {
     }
     
     if (ofGetElapsedTimef() - powerupStartTime > powerupTimeBetween) {
-        Powerup p;
-        powerups.push_back( p );
+        Powerup p1(true, &bitdustLarge);
+        Powerup p2(false, &bitdustLarge);
+        powerups.push_back( p1 );
+        powerups.push_back( p2 );
         
-        powerupStartTime = ofGetElapsedTimef();
+        powerupStartTime = ofGetElapsedTimef(); 
     }
     
     //If bomb powerup is actived, erase all obstacles on screen
@@ -309,38 +314,6 @@ void testApp::drawGameplay() {
     }
     obstacle.draw();
     
-    ofSetColor(255);
-    if (bIsBonus) {
-        ofDrawBitmapString("Bonus", ofPoint(20,100));
-    }
-    if (bIsShort) {
-        ofDrawBitmapString("Short", ofPoint(20,120));
-    }
-    if (bIsSlow) {
-        ofDrawBitmapString("Slow", ofPoint(20,140));
-    }
-    if (bIsInvincible) {
-        ofDrawBitmapString("Invincible", ofPoint(20,160));
-    }
-    if (bIsBomb) {
-        ofDrawBitmapString("Bomb", ofPoint(20,180));
-    }
-    if (bIsFast) {
-        ofDrawBitmapString("Fast", ofPoint(20,200));
-    }
-    if (bIsLong) {
-        ofDrawBitmapString("Long", ofPoint(20,220));
-    }
-    if (bIsLarge) {
-        ofDrawBitmapString("Large", ofPoint(20,240));
-    }
-    if (bIsInvisible) {
-        ofDrawBitmapString("Invisible", ofPoint(20,260));
-    }
-    if (bIsWall) {
-        ofDrawBitmapString("Wall", ofPoint(20,280));
-    }
-    
     if (bIsWall) {
         ofNoFill();
         ofSetLineWidth( 10.0 );
@@ -411,15 +384,22 @@ void testApp::resetGameplay() {
     timeLeft = 5;
     startCountdown = ofGetElapsedTimef();
     
+    //Reset snake attributes
+    snake.pos = ofGetWindowSize() /2;
+    snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.end() - 25);
+    
+    for (int i = 0; i < snake.snakePos.size(); i++) {
+        snake.snakePos[i] = snake.pos - snake.snakeSize;
+    }
+    
+    //Destroy all obstacles and reset their attributes.
     obstacle.obList.clear();
     obstacle.obSize = 50.0;
     obstacle.obLife = 250.0;
     obstacle.moveForce = 5.0;
     
-    snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.end() - 25);
-    snake.pos.set(ofGetWindowSize() / 2);
-    
     timeScale = 1.0;
+    currentTimeScale = 1.0;
 }
 
 void testApp::managePowerups() {
@@ -508,25 +488,6 @@ void testApp::explodeObstacles() {
 
 
 //--------------------------------------------------------------
-void testApp::sendMsg() {
-    ofxOscMessage m;
-    m.setAddress("/snake/pos");
-    m.addFloatArg(snake.pos.x);
-    m.addFloatArg(snake.pos.y);
-    
-    mSender.sendMessage( m );
-}
-
-void testApp::receiveMsg() {
-    while ( mReceiver.hasWaitingMessages() ) {
-        ofxOscMessage m;
-        mReceiver.getNextMessage( &m );
-        
-        string addr = m.getAddress();
-    }
-    
-}
-
 
 //Thanks to companje for the function, from OF Forums
 //Takes in a number and converts to a rounded string
@@ -606,8 +567,10 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
 
-    Powerup p;
-    powerups.push_back( p );
+    Powerup p1(true, &bitdustLarge);
+    Powerup p2(false, &bitdustLarge);
+    powerups.push_back( p1 );
+    powerups.push_back( p2 );
 }
 
 //--------------------------------------------------------------

@@ -42,7 +42,6 @@ void Snake::addDamping() {
 void Snake::checkCollision( ofVec2f p, float size ) {
 
     if (pos.distance(p) < size / 2) {
-        c.setHsb(200, 255, 255);
         bHasCollided = true;
     }
     
@@ -104,43 +103,43 @@ void Snake::screenBoundaryCheck() {
 
 void Snake::checkKeyPress( int key, int player ) {
     if (player == 1) {
-        if (key == OF_KEY_UP) {
+        if (key == OF_KEY_UP && vel.y == 0) {
             vel.set(0, -desiredSpeed);
             addForce( ofVec2f(0, -turnForce) );
         }
         
-        if (key == OF_KEY_RIGHT) {
+        if (key == OF_KEY_RIGHT && vel.x == 0) {
             vel.set(desiredSpeed, 0);
             addForce( ofVec2f(turnForce, 0) );
         }
         
-        if (key == OF_KEY_DOWN) {
+        if (key == OF_KEY_DOWN && vel.y == 0) {
             vel.set(0, desiredSpeed);
             addForce( ofVec2f(0, turnForce) );
         }
         
-        if (key == OF_KEY_LEFT) {
+        if (key == OF_KEY_LEFT && vel.x == 0) {
             vel.set(-desiredSpeed, 0);
             addForce( ofVec2f(-turnForce, 0) );
         }
     }
     else if (player == 2) {
-        if (key == 'w') {
+        if (key == 'w' && vel.y == 0) {
             vel.set(0, -desiredSpeed);
             addForce( ofVec2f(0, -turnForce) );
         }
         
-        if (key == 'd') {
+        if (key == 'd' && vel.x == 0) {
             vel.set(desiredSpeed, 0);
             addForce( ofVec2f(turnForce, 0) );
         }
         
-        if (key == 's') {
+        if (key == 's' && vel.y == 0) {
             vel.set(0, desiredSpeed);
             addForce( ofVec2f(0, turnForce) );
         }
         
-        if (key == 'a') {
+        if (key == 'a' && vel.x == 0) {
             vel.set(-desiredSpeed, 0);
             addForce( ofVec2f(-turnForce, 0) );
         }
