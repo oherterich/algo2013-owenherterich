@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#include "ofxOsc.h"
+#include "ofxGamepadHandler.h"
 
 #include "Snake.h"
 #include "Obstacle.h"
@@ -14,6 +14,10 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+    
+        void axisChanged(ofxGamepadAxisEvent &e);
+        void buttonPressed(ofxGamepadButtonEvent &e);
+        void buttonReleased(ofxGamepadButtonEvent &e);
 
 		void keyPressed(int key);
 		void keyReleased(int key);

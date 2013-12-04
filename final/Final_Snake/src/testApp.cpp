@@ -6,6 +6,17 @@ void testApp::setup(){
     ofBackground( 0 );
     ofSetRectMode(OF_RECTMODE_CENTER);
     
+    //Set up Gamepad stuff
+    ofxGamepadHandler::get()->enableHotplug();
+	
+	//CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
+	if(ofxGamepadHandler::get()->getNumPads()>0){
+        ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
+        ofAddListener(pad->onAxisChanged, this, &testApp::axisChanged);
+        ofAddListener(pad->onButtonPressed, this, &testApp::buttonPressed);
+        ofAddListener(pad->onButtonReleased, this, &testApp::buttonReleased);
+	}
+    
     gameState = 0; //Intro
     
     roundNum = 1;
@@ -540,11 +551,9 @@ void testApp::keyPressed(int key){
             break;
             
         case 2:
-            drawInterlude();
             break;
             
         case 3:
-            drawEnd();
             break;
     }
 }
@@ -576,6 +585,100 @@ void testApp::mousePressed(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
 
+}
+
+//--------------------------------------------------------------
+
+void testApp::axisChanged(ofxGamepadAxisEvent& e)
+{
+	switch (gameState) {
+        case 0:
+            break;
+            
+        case 1:
+            if ( snakePlayer == 1 ) {
+                if ( e.axis == 2 ) {
+                    if ( e.value < -0.8 ) {
+                        snake.checkGamepad(2, 1);
+                    }
+                    else if ( e.value > 0.8) {
+                        snake.checkGamepad(3, 1);
+                    }
+                }
+                
+                if ( e.axis == 3 ) {
+                    if ( e.value < -0.8 ) {
+                        snake.checkGamepad(0, 1);
+                    }
+                    else if ( e.value > 0.8) {
+                        snake.checkGamepad(1, 1);
+                    }
+                }
+                //obstacle.checkKeyPress( key, 2 );
+            }
+            else if ( snakePlayer == 2 ) {
+                //snake.checkKeyPress( key, 2 );
+                if ( e.axis == 2 ) {
+                    if ( e.value < -0.8 ) {
+                        obstacle.checkGamepad(2, 1);
+                    }
+                    else if ( e.value > 0.8) {
+                        obstacle.checkGamepad(3, 1);
+                    }
+                }
+                
+                if ( e.axis == 3 ) {
+                    if ( e.value < -0.8 ) {
+                        obstacle.checkGamepad(0, 1);
+                    }
+                    else if ( e.value > 0.8) {
+                        obstacle.checkGamepad(1, 1);
+                    }
+                }
+            }
+            break;
+            
+        case 2:
+            break;
+            
+        case 3:
+            break;
+    }
+
+}
+
+void testApp::buttonPressed(ofxGamepadButtonEvent& e)
+{
+
+}
+
+void testApp::buttonReleased(ofxGamepadButtonEvent& e)
+{
+    switch (gameState) {
+        case 0:
+            if ( e.button == 11) {
+                bIsPlayer1Ready = true;
+                bIsPlayer2Ready = true;
+            }
+            break;
+            
+        case 1:
+            if ( snakePlayer == 1 ) {
+                snake.checkGamepad((int)e.button, 1);
+                //obstacle.checkKeyPress( key, 2 );
+            }
+            else if ( snakePlayer == 2 ) {
+                //snake.checkKeyPress( key, 2 );
+                obstacle.checkGamepad((int)e.button, 1);
+            }
+            break;
+            
+        case 2:
+            break;
+            
+        case 3:
+            break;
+    }
 }
 
 //--------------------------------------------------------------

@@ -20,6 +20,7 @@ class Obstacle {
         void addForce( ofVec2f force );
         void addDamping();
         void checkKeyPress( int key, int player );
+        void checkGamepad( int button, int player );
         void screenBoundaryCheck();
         void addObstacle();
         void updateObstacle();

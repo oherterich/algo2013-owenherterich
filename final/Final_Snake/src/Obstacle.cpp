@@ -13,7 +13,7 @@ Obstacle::Obstacle() {
     vel.set( 0 );
     
     obSize = 50.0;
-    obLife = 350.0;
+    obLife = 400.0;
     
     moveForce = 11.0;
     damping = 0.95;
@@ -85,6 +85,34 @@ void Obstacle::checkKeyPress( int key, int player ) {
     }
 }
 
+void Obstacle::checkGamepad( int button, int player ) {
+    if (player == 1) {
+        if ( button == 0 ) {
+            addForce( ofVec2f(0, -moveForce / 2) );
+            vel.set( 0, -moveForce );
+        }
+        
+        if ( button == 3 ) {
+            addForce( ofVec2f(moveForce / 2, 0) );
+            vel.set( moveForce, 0 );
+        }
+        
+        if ( button == 1 ) {
+            addForce( ofVec2f(0, moveForce / 2) );
+            vel.set( 0, moveForce );
+        }
+        
+        if ( button == 2 ) {
+            addForce( ofVec2f(-moveForce / 2, 0) );
+            vel.set( -moveForce, 0 );
+        }
+        
+        if ( button == 11 ) {
+            addObstacle();
+        }
+    }
+}
+
 void Obstacle::screenBoundaryCheck() {
     if ( pos.x > ofGetWindowWidth() ) {
         pos.x = 0;
@@ -104,7 +132,7 @@ void Obstacle::screenBoundaryCheck() {
 }
 
 void Obstacle::addObstacle() {
-    if (ofGetElapsedTimef() - lastObTime > 0.4) {
+    if (ofGetElapsedTimef() - lastObTime > 0.2) {
         ObstacleShape ob(obSize);
         ob.pos.set( pos );
         ob.life = obLife;

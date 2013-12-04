@@ -146,6 +146,30 @@ void Snake::checkKeyPress( int key, int player ) {
     }
 }
 
+void Snake::checkGamepad( int button, int player ) {
+    if (player == 1) {
+        if (button == 0 && vel.y == 0) {
+            vel.set(0, -desiredSpeed);
+            addForce( ofVec2f(0, -turnForce) );
+        }
+        
+        if (button == 3 && vel.x == 0) {
+            vel.set(desiredSpeed, 0);
+            addForce( ofVec2f(turnForce, 0) );
+        }
+        
+        if (button == 1 && vel.y == 0) {
+            vel.set(0, desiredSpeed);
+            addForce( ofVec2f(0, turnForce) );
+        }
+        
+        if (button == 2 && vel.x == 0) {
+            vel.set(-desiredSpeed, 0);
+            addForce( ofVec2f(-turnForce, 0) );
+        }
+    }
+}
+
 void Snake::update( float dt ) {
     updateTail();
     

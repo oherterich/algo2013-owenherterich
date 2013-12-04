@@ -27,6 +27,7 @@ class Snake {
         void drawTail();
         void screenBoundaryCheck();
         void checkKeyPress( int key, int player );
+        void checkGamepad( int button, int player );
     
         ofVec2f pos, vel, acc; //controls main snake
         vector<ofVec2f> snakePos; //position of tail of snake

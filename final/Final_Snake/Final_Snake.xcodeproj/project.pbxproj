@@ -33,6 +33,17 @@
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		884CB4D049E35C51E949A565 /* KaleidoscopePass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 108C4DB0C398388D00027091 /* KaleidoscopePass.cpp */; };
 		893C865B184AB5FF003371A4 /* Powerup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 893C8659184AB5FF003371A4 /* Powerup.cpp */; };
+		8989856D184EF44C0037C022 /* ofxGamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8989852E184EF44C0037C022 /* ofxGamepad.cpp */; };
+		8989856E184EF44C0037C022 /* ofxGamepadCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89898530184EF44C0037C022 /* ofxGamepadCamera.cpp */; };
+		8989856F184EF44C0037C022 /* ofxGamepadHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89898533184EF44C0037C022 /* ofxGamepadHandler.cpp */; };
+		89898570184EF44C0037C022 /* ofxGamepadLinux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89898535184EF44C0037C022 /* ofxGamepadLinux.cpp */; };
+		89898571184EF44C0037C022 /* ofxGamepadOIS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89898537184EF44C0037C022 /* ofxGamepadOIS.cpp */; };
+		89898572184EF44C0037C022 /* libwgois64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89898564184EF44C0037C022 /* libwgois64.a */; };
+		89898573184EF44C0037C022 /* libOIS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89898566184EF44C0037C022 /* libOIS.a */; };
+		89898574184EF44C0037C022 /* OIS_static.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 89898568184EF44C0037C022 /* OIS_static.lib */; };
+		89898575184EF44C0037C022 /* OIS_static_d.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 89898569184EF44C0037C022 /* OIS_static_d.lib */; };
+		89898576184EF44C0037C022 /* OIS_vs2010_static.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8989856B184EF44C0037C022 /* OIS_vs2010_static.lib */; };
+		89898577184EF44C0037C022 /* OIS_vs2010_static_d.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8989856C184EF44C0037C022 /* OIS_vs2010_static_d.lib */; };
 		898CB0955CB42FEB5D750A5C /* VerticalTiltShifPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B73DCDAF417A486A343EF /* VerticalTiltShifPass.cpp */; };
 		89EA01731843919F00C489F9 /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89EA01711843919F00C489F9 /* Snake.cpp */; };
 		89EA018418442D2300C489F9 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89EA018018442D2300C489F9 /* Obstacle.cpp */; };
@@ -172,6 +183,58 @@
 		885850B62FAD08EB1D2F0BF4 /* ofxUIRotarySlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIRotarySlider.h; path = ../../../addons/ofxUI/src/ofxUIRotarySlider.h; sourceTree = SOURCE_ROOT; };
 		893C8659184AB5FF003371A4 /* Powerup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Powerup.cpp; sourceTree = "<group>"; };
 		893C865A184AB5FF003371A4 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Powerup.h; sourceTree = "<group>"; };
+		8989852E184EF44C0037C022 /* ofxGamepad.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGamepad.cpp; sourceTree = "<group>"; };
+		8989852F184EF44C0037C022 /* ofxGamepad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepad.h; sourceTree = "<group>"; };
+		89898530184EF44C0037C022 /* ofxGamepadCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGamepadCamera.cpp; sourceTree = "<group>"; };
+		89898531184EF44C0037C022 /* ofxGamepadCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepadCamera.h; sourceTree = "<group>"; };
+		89898532184EF44C0037C022 /* ofxGamepadConfigs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepadConfigs.h; sourceTree = "<group>"; };
+		89898533184EF44C0037C022 /* ofxGamepadHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGamepadHandler.cpp; sourceTree = "<group>"; };
+		89898534184EF44C0037C022 /* ofxGamepadHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepadHandler.h; sourceTree = "<group>"; };
+		89898535184EF44C0037C022 /* ofxGamepadLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGamepadLinux.cpp; sourceTree = "<group>"; };
+		89898536184EF44C0037C022 /* ofxGamepadLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepadLinux.h; sourceTree = "<group>"; };
+		89898537184EF44C0037C022 /* ofxGamepadOIS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGamepadOIS.cpp; sourceTree = "<group>"; };
+		89898538184EF44C0037C022 /* ofxGamepadOIS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGamepadOIS.h; sourceTree = "<group>"; };
+		8989853D184EF44C0037C022 /* EventHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventHelpers.h; sourceTree = "<group>"; };
+		8989853E184EF44C0037C022 /* LinuxForceFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxForceFeedback.h; sourceTree = "<group>"; };
+		8989853F184EF44C0037C022 /* LinuxInputManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxInputManager.h; sourceTree = "<group>"; };
+		89898540184EF44C0037C022 /* LinuxJoyStickEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxJoyStickEvents.h; sourceTree = "<group>"; };
+		89898541184EF44C0037C022 /* LinuxKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxKeyboard.h; sourceTree = "<group>"; };
+		89898542184EF44C0037C022 /* LinuxMouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxMouse.h; sourceTree = "<group>"; };
+		89898543184EF44C0037C022 /* LinuxPrereqs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinuxPrereqs.h; sourceTree = "<group>"; };
+		89898545184EF44C0037C022 /* MacHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacHelpers.h; sourceTree = "<group>"; };
+		89898546184EF44C0037C022 /* MacHIDManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacHIDManager.h; sourceTree = "<group>"; };
+		89898547184EF44C0037C022 /* MacInputManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacInputManager.h; sourceTree = "<group>"; };
+		89898548184EF44C0037C022 /* MacJoyStick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacJoyStick.h; sourceTree = "<group>"; };
+		89898549184EF44C0037C022 /* MacKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacKeyboard.h; sourceTree = "<group>"; };
+		8989854A184EF44C0037C022 /* MacMouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacMouse.h; sourceTree = "<group>"; };
+		8989854B184EF44C0037C022 /* MacPrereqs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPrereqs.h; sourceTree = "<group>"; };
+		8989854C184EF44C0037C022 /* OIS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OIS.h; sourceTree = "<group>"; };
+		8989854D184EF44C0037C022 /* OISConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISConfig.h; sourceTree = "<group>"; };
+		8989854E184EF44C0037C022 /* OISEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISEffect.h; sourceTree = "<group>"; };
+		8989854F184EF44C0037C022 /* OISEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISEvents.h; sourceTree = "<group>"; };
+		89898550184EF44C0037C022 /* OISException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISException.h; sourceTree = "<group>"; };
+		89898551184EF44C0037C022 /* OISFactoryCreator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISFactoryCreator.h; sourceTree = "<group>"; };
+		89898552184EF44C0037C022 /* OISForceFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISForceFeedback.h; sourceTree = "<group>"; };
+		89898553184EF44C0037C022 /* OISInputManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISInputManager.h; sourceTree = "<group>"; };
+		89898554184EF44C0037C022 /* OISInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISInterface.h; sourceTree = "<group>"; };
+		89898555184EF44C0037C022 /* OISJoyStick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISJoyStick.h; sourceTree = "<group>"; };
+		89898556184EF44C0037C022 /* OISKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISKeyboard.h; sourceTree = "<group>"; };
+		89898557184EF44C0037C022 /* OISMouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISMouse.h; sourceTree = "<group>"; };
+		89898558184EF44C0037C022 /* OISMultiTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISMultiTouch.h; sourceTree = "<group>"; };
+		89898559184EF44C0037C022 /* OISObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISObject.h; sourceTree = "<group>"; };
+		8989855A184EF44C0037C022 /* OISPrereqs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OISPrereqs.h; sourceTree = "<group>"; };
+		8989855C184EF44C0037C022 /* Win32ForceFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32ForceFeedback.h; sourceTree = "<group>"; };
+		8989855D184EF44C0037C022 /* Win32InputManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32InputManager.h; sourceTree = "<group>"; };
+		8989855E184EF44C0037C022 /* Win32JoyStick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32JoyStick.h; sourceTree = "<group>"; };
+		8989855F184EF44C0037C022 /* Win32KeyBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32KeyBoard.h; sourceTree = "<group>"; };
+		89898560184EF44C0037C022 /* Win32Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32Mouse.h; sourceTree = "<group>"; };
+		89898561184EF44C0037C022 /* Win32Prereqs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win32Prereqs.h; sourceTree = "<group>"; };
+		89898564184EF44C0037C022 /* libwgois64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwgois64.a; sourceTree = "<group>"; };
+		89898566184EF44C0037C022 /* libOIS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOIS.a; sourceTree = "<group>"; };
+		89898568184EF44C0037C022 /* OIS_static.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_static.lib; sourceTree = "<group>"; };
+		89898569184EF44C0037C022 /* OIS_static_d.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_static_d.lib; sourceTree = "<group>"; };
+		8989856B184EF44C0037C022 /* OIS_vs2010_static.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_vs2010_static.lib; sourceTree = "<group>"; };
+		8989856C184EF44C0037C022 /* OIS_vs2010_static_d.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_vs2010_static_d.lib; sourceTree = "<group>"; };
 		89EA01711843919F00C489F9 /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		89EA01721843919F00C489F9 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		89EA018018442D2300C489F9 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
@@ -272,6 +335,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */,
+				89898576184EF44C0037C022 /* OIS_vs2010_static.lib in Frameworks */,
+				89898574184EF44C0037C022 /* OIS_static.lib in Frameworks */,
 				E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */,
 				E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
@@ -283,9 +348,13 @@
 				E45BE9800E8CC7DD009D7055 /* CoreFoundation.framework in Frameworks */,
 				E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */,
 				E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */,
+				89898577184EF44C0037C022 /* OIS_vs2010_static_d.lib in Frameworks */,
 				E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */,
+				89898572184EF44C0037C022 /* libwgois64.a in Frameworks */,
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
+				89898573184EF44C0037C022 /* libOIS.a in Frameworks */,
+				89898575184EF44C0037C022 /* OIS_static_d.lib in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
 			);
@@ -336,6 +405,163 @@
 				D27B2221A225CA523C019676 /* src */,
 			);
 			name = oscpack;
+			sourceTree = "<group>";
+		};
+		8989852C184EF44B0037C022 /* ofxGamepad */ = {
+			isa = PBXGroup;
+			children = (
+				8989852D184EF44C0037C022 /* src */,
+				89898539184EF44C0037C022 /* libs */,
+			);
+			name = ofxGamepad;
+			sourceTree = "<group>";
+		};
+		8989852D184EF44C0037C022 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8989852E184EF44C0037C022 /* ofxGamepad.cpp */,
+				8989852F184EF44C0037C022 /* ofxGamepad.h */,
+				89898530184EF44C0037C022 /* ofxGamepadCamera.cpp */,
+				89898531184EF44C0037C022 /* ofxGamepadCamera.h */,
+				89898532184EF44C0037C022 /* ofxGamepadConfigs.h */,
+				89898533184EF44C0037C022 /* ofxGamepadHandler.cpp */,
+				89898534184EF44C0037C022 /* ofxGamepadHandler.h */,
+				89898535184EF44C0037C022 /* ofxGamepadLinux.cpp */,
+				89898536184EF44C0037C022 /* ofxGamepadLinux.h */,
+				89898537184EF44C0037C022 /* ofxGamepadOIS.cpp */,
+				89898538184EF44C0037C022 /* ofxGamepadOIS.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxGamepad/src;
+			sourceTree = "<group>";
+		};
+		89898539184EF44C0037C022 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				8989853A184EF44C0037C022 /* wgois */,
+			);
+			name = libs;
+			path = ../../../addons/ofxGamepad/libs;
+			sourceTree = "<group>";
+		};
+		8989853A184EF44C0037C022 /* wgois */ = {
+			isa = PBXGroup;
+			children = (
+				8989853B184EF44C0037C022 /* include */,
+				89898562184EF44C0037C022 /* lib */,
+			);
+			path = wgois;
+			sourceTree = "<group>";
+		};
+		8989853B184EF44C0037C022 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				8989853C184EF44C0037C022 /* linux */,
+				89898544184EF44C0037C022 /* mac */,
+				8989854C184EF44C0037C022 /* OIS.h */,
+				8989854D184EF44C0037C022 /* OISConfig.h */,
+				8989854E184EF44C0037C022 /* OISEffect.h */,
+				8989854F184EF44C0037C022 /* OISEvents.h */,
+				89898550184EF44C0037C022 /* OISException.h */,
+				89898551184EF44C0037C022 /* OISFactoryCreator.h */,
+				89898552184EF44C0037C022 /* OISForceFeedback.h */,
+				89898553184EF44C0037C022 /* OISInputManager.h */,
+				89898554184EF44C0037C022 /* OISInterface.h */,
+				89898555184EF44C0037C022 /* OISJoyStick.h */,
+				89898556184EF44C0037C022 /* OISKeyboard.h */,
+				89898557184EF44C0037C022 /* OISMouse.h */,
+				89898558184EF44C0037C022 /* OISMultiTouch.h */,
+				89898559184EF44C0037C022 /* OISObject.h */,
+				8989855A184EF44C0037C022 /* OISPrereqs.h */,
+				8989855B184EF44C0037C022 /* win32 */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		8989853C184EF44C0037C022 /* linux */ = {
+			isa = PBXGroup;
+			children = (
+				8989853D184EF44C0037C022 /* EventHelpers.h */,
+				8989853E184EF44C0037C022 /* LinuxForceFeedback.h */,
+				8989853F184EF44C0037C022 /* LinuxInputManager.h */,
+				89898540184EF44C0037C022 /* LinuxJoyStickEvents.h */,
+				89898541184EF44C0037C022 /* LinuxKeyboard.h */,
+				89898542184EF44C0037C022 /* LinuxMouse.h */,
+				89898543184EF44C0037C022 /* LinuxPrereqs.h */,
+			);
+			path = linux;
+			sourceTree = "<group>";
+		};
+		89898544184EF44C0037C022 /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				89898545184EF44C0037C022 /* MacHelpers.h */,
+				89898546184EF44C0037C022 /* MacHIDManager.h */,
+				89898547184EF44C0037C022 /* MacInputManager.h */,
+				89898548184EF44C0037C022 /* MacJoyStick.h */,
+				89898549184EF44C0037C022 /* MacKeyboard.h */,
+				8989854A184EF44C0037C022 /* MacMouse.h */,
+				8989854B184EF44C0037C022 /* MacPrereqs.h */,
+			);
+			path = mac;
+			sourceTree = "<group>";
+		};
+		8989855B184EF44C0037C022 /* win32 */ = {
+			isa = PBXGroup;
+			children = (
+				8989855C184EF44C0037C022 /* Win32ForceFeedback.h */,
+				8989855D184EF44C0037C022 /* Win32InputManager.h */,
+				8989855E184EF44C0037C022 /* Win32JoyStick.h */,
+				8989855F184EF44C0037C022 /* Win32KeyBoard.h */,
+				89898560184EF44C0037C022 /* Win32Mouse.h */,
+				89898561184EF44C0037C022 /* Win32Prereqs.h */,
+			);
+			path = win32;
+			sourceTree = "<group>";
+		};
+		89898562184EF44C0037C022 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				89898563184EF44C0037C022 /* linux64 */,
+				89898565184EF44C0037C022 /* osx */,
+				89898567184EF44C0037C022 /* vs2008 */,
+				8989856A184EF44C0037C022 /* vs2010 */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		89898563184EF44C0037C022 /* linux64 */ = {
+			isa = PBXGroup;
+			children = (
+				89898564184EF44C0037C022 /* libwgois64.a */,
+			);
+			path = linux64;
+			sourceTree = "<group>";
+		};
+		89898565184EF44C0037C022 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				89898566184EF44C0037C022 /* libOIS.a */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		89898567184EF44C0037C022 /* vs2008 */ = {
+			isa = PBXGroup;
+			children = (
+				89898568184EF44C0037C022 /* OIS_static.lib */,
+				89898569184EF44C0037C022 /* OIS_static_d.lib */,
+			);
+			path = vs2008;
+			sourceTree = "<group>";
+		};
+		8989856A184EF44C0037C022 /* vs2010 */ = {
+			isa = PBXGroup;
+			children = (
+				8989856B184EF44C0037C022 /* OIS_vs2010_static.lib */,
+				8989856C184EF44C0037C022 /* OIS_vs2010_static_d.lib */,
+			);
+			path = vs2010;
 			sourceTree = "<group>";
 		};
 		A492CE86424AB8905550BFD8 /* ofxUI */ = {
@@ -414,6 +640,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				8989852C184EF44B0037C022 /* ofxGamepad */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
 				BD52EC6DCE402D90869A80A1 /* ofxPostProcessing */,
 				A492CE86424AB8905550BFD8 /* ofxUI */,
@@ -715,6 +942,7 @@
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
+				8989856E184EF44C0037C022 /* ofxGamepadCamera.cpp in Sources */,
 				89EA01731843919F00C489F9 /* Snake.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
@@ -733,12 +961,15 @@
 				778DCA6792476E5B9F57F175 /* ConvolutionPass.cpp in Sources */,
 				B58A80B21A55E254F48E6E13 /* DofAltPass.cpp in Sources */,
 				114C00B13F753E59BB0984BB /* DofPass.cpp in Sources */,
+				8989856D184EF44C0037C022 /* ofxGamepad.cpp in Sources */,
 				AE65C02FEC934514466A8D67 /* EdgePass.cpp in Sources */,
+				89898571184EF44C0037C022 /* ofxGamepadOIS.cpp in Sources */,
 				33DB731E964056D7E35604A7 /* FakeSSSPass.cpp in Sources */,
 				04C13EEA813A786CC1D8137A /* FxaaPass.cpp in Sources */,
 				6A505EAE8088949A9180FFE7 /* GodRaysPass.cpp in Sources */,
 				28AFD6FA9B9C885AFD9FF1C7 /* HorizontalTiltShifPass.cpp in Sources */,
 				884CB4D049E35C51E949A565 /* KaleidoscopePass.cpp in Sources */,
+				89898570184EF44C0037C022 /* ofxGamepadLinux.cpp in Sources */,
 				893C865B184AB5FF003371A4 /* Powerup.cpp in Sources */,
 				7AB51F1099DC01486D18FAF6 /* LimbDarkeningPass.cpp in Sources */,
 				B1747F12881D899DCA2647FC /* LUTPass.cpp in Sources */,
@@ -752,6 +983,7 @@
 				813E52BD790CE4AAF527DCD4 /* ToonPass.cpp in Sources */,
 				898CB0955CB42FEB5D750A5C /* VerticalTiltShifPass.cpp in Sources */,
 				D752EB8BA905C25F5E7F2B30 /* ZoomBlurPass.cpp in Sources */,
+				8989856F184EF44C0037C022 /* ofxGamepadHandler.cpp in Sources */,
 				89EA018518442D2300C489F9 /* ObstacleShape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -938,6 +1170,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/linux64,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/osx,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/vs2008,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/vs2010,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
@@ -1023,6 +1259,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/linux64,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/osx,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/vs2008,
+					/Users/owenherterich/Documents/openFrameworks/of_v0.8.0_osx_release/addons/ofxGamepad/libs/wgois/lib/vs2010,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
