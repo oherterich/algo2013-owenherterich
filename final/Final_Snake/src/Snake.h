@@ -21,6 +21,7 @@ class Snake {
         void checkCollision( ofVec2f p, float size );
         void checkSelfCollision();
         void checkBoundaryCollision();
+        void changeDirection();
     
         void addTail();
         void updateTail();
@@ -31,6 +32,12 @@ class Snake {
     
         ofVec2f pos, vel, acc; //controls main snake
         vector<ofVec2f> snakePos; //position of tail of snake
+    
+        //Switches that control snake direction
+        bool    up;
+        bool    right;
+        bool    down;
+        bool    left;
     
         int     snakeLength; //the length of the snake
         int     snakeSize; //the size (radius) of snake

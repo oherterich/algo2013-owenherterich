@@ -48,8 +48,6 @@ void testApp::setup(){
     timeLeft = 5;
     
     mainSong.loadSound("audio/akumulator.mp3");
-    
-    obstacleSize = 25.0;
 }
 
 //--------------------------------------------------------------
@@ -86,7 +84,7 @@ void testApp::updateIntro() {
         gameState = 1;
         startGameplayTime = ofGetElapsedTimef();
         powerupStartTime = ofGetElapsedTimef();
-        //¨mainSong.play();
+        mainSong.play();
     }
 }
 
@@ -164,7 +162,7 @@ void testApp::updateGameplay() {
         powerups.push_back( p1 );
         powerups.push_back( p2 );
         
-        powerupStartTime = ofGetElapsedTimef(); 
+        powerupStartTime = ofGetElapsedTimef();
     }
     
     //If bomb powerup is actived, erase all obstacles on screen
@@ -172,6 +170,12 @@ void testApp::updateGameplay() {
         explodeObstacles();
     }
     
+    for ( int i = 0; i < squares.size(); i++) {
+        if (squares[i].kill()) {
+            squares.erase(squares.begin() + i);
+        }
+        squares[i].update();
+    }
     
     //Obstacle stuff
     obstacle.update( dt * timeScale );
@@ -188,7 +192,7 @@ void testApp::updateGameplay() {
     if ( snakePlayer == 1) {
         //If the bonus points powerup is active, you get DOUBLE POINTS!
         if (bIsBonus) {
-            player1Score += scoreModifier * 2;
+            player1Score += scoreModifier * 1.5;
         }
         else {
             player1Score += scoreModifier;
@@ -197,7 +201,7 @@ void testApp::updateGameplay() {
     else if ( snakePlayer == 2) {
         //If the bonus points powerup is active, you get DOUBLE POINTS!
         if (bIsBonus) {
-            player2Score += scoreModifier * 2;
+            player2Score += scoreModifier * 1.5;
         }
         else {
             player2Score += scoreModifier;
@@ -270,6 +274,7 @@ void testApp::draw(){
             drawEnd();
             break;
     }
+    
 }
 
 void testApp::drawIntro() {
@@ -312,14 +317,6 @@ void testApp::drawIntro() {
 
 void testApp::drawGameplay() {
     
-    ofSetColor(255);
-    bitdustMedium.drawString("TIME: " + nf(elapsedGameplayTime), 20, 40);
-    
-    bitdustMedium.drawString("ROUND " + ofToString(roundNum), 400, 40);
-    
-    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 830, 40);
-    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 830, 80);
-    
     if (!bIsInvisible) {
         snake.draw();
     }
@@ -332,15 +329,23 @@ void testApp::drawGameplay() {
         ofRect(ofGetWindowSize() / 2, ofGetWindowWidth(), ofGetWindowHeight());
     }
     
-    
-    for( int i = 0; i < obstacles.size(); i++ ) {
-        ofSetColor(255,255,0);
-        ofRect(obstacles[i], obstacleSize, obstacleSize);
-    }
-    
-    for ( int i =0; i < powerups.size(); i++) {
+    for ( int i = 0; i < powerups.size(); i++) {
         powerups[i].draw();
     }
+    
+    for ( int i = 0; i < squares.size(); i++) {
+        squares[i].draw();
+    }
+    
+    //Draw interface
+    ofSetColor(255);
+    bitdustMedium.drawString("TIME: " + nf(elapsedGameplayTime), 20, 40);
+    
+    ofSetColor(255);
+    bitdustMedium.drawString("ROUND " + ofToString(roundNum), 400, 40);
+    
+    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 830, 40);
+    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 830, 80);
 }
 
 void testApp::drawInterlude() {
@@ -411,6 +416,18 @@ void testApp::resetGameplay() {
     
     timeScale = 1.0;
     currentTimeScale = 1.0;
+    
+    //Reset powerups
+    bIsBonus = false;
+    bIsShort = false;
+    bIsSlow = false;
+    bIsInvincible = false;
+    bIsBomb = false;
+    bIsFast = false;
+    bIsLong = false;
+    bIsLarge = false;
+    bIsInvisible = false;
+    bIsWall = false;
 }
 
 void testApp::managePowerups() {
@@ -492,9 +509,19 @@ void testApp::managePowerups() {
 }
 
 void testApp::explodeObstacles() {
-    for (int i = 0; i < obstacle.obList.size(); i++) {
+    if (obstacle.obList.size() > 1) {
+        for (int i = 0; i < obstacle.obList.size(); i++) {
+            for (int j = 0; j < 50; j++) {
+                addSquares(obstacle.obList[i].pos);
+            }
+        }
         obstacle.obList.clear();
     }
+}
+
+void testApp::addSquares( ofVec2f pos ){
+    Square s( pos );
+    squares.push_back( s );
 }
 
 
@@ -598,19 +625,19 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
         case 1:
             if ( snakePlayer == 1 ) {
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.8 ) {
+                    if ( e.value < -0.95 ) {
                         snake.checkGamepad(2, 1);
                     }
-                    else if ( e.value > 0.8) {
+                    else if ( e.value > 0.95) {
                         snake.checkGamepad(3, 1);
                     }
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.8 ) {
+                    if ( e.value < -0.95 ) {
                         snake.checkGamepad(0, 1);
                     }
-                    else if ( e.value > 0.8) {
+                    else if ( e.value > 0.95) {
                         snake.checkGamepad(1, 1);
                     }
                 }
@@ -619,19 +646,19 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
             else if ( snakePlayer == 2 ) {
                 //snake.checkKeyPress( key, 2 );
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.8 ) {
+                    if ( e.value < -0.95 ) {
                         obstacle.checkGamepad(2, 1);
                     }
-                    else if ( e.value > 0.8) {
+                    else if ( e.value > 0.95) {
                         obstacle.checkGamepad(3, 1);
                     }
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.8 ) {
+                    if ( e.value < -0.95 ) {
                         obstacle.checkGamepad(0, 1);
                     }
-                    else if ( e.value > 0.8) {
+                    else if ( e.value > 0.95) {
                         obstacle.checkGamepad(1, 1);
                     }
                 }

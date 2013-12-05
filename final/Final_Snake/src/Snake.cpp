@@ -149,28 +149,66 @@ void Snake::checkKeyPress( int key, int player ) {
 void Snake::checkGamepad( int button, int player ) {
     if (player == 1) {
         if (button == 0 && vel.y == 0) {
-            vel.set(0, -desiredSpeed);
+            up = true;
+            right = false;
+            down = false;
+            left = false;
             addForce( ofVec2f(0, -turnForce) );
+            vel.x = 0;
+            changeDirection();
         }
         
-        if (button == 3 && vel.x == 0) {
-            vel.set(desiredSpeed, 0);
+        else if (button == 3 && vel.x == 0) {
+            up = false;
+            right = true;
+            down = false;
+            left = false;
             addForce( ofVec2f(turnForce, 0) );
+            vel.y = 0;
+            changeDirection();
         }
         
-        if (button == 1 && vel.y == 0) {
-            vel.set(0, desiredSpeed);
+        else if (button == 1 && vel.y == 0) {
+            up = false;
+            right = false;
+            down = true;
+            left = false;
             addForce( ofVec2f(0, turnForce) );
+            vel.x = 0;
+            changeDirection();
         }
         
-        if (button == 2 && vel.x == 0) {
-            vel.set(-desiredSpeed, 0);
+        else if (button == 2 && vel.x == 0) {
+            up = false;
+            right = false;
+            down = false;
+            left = true;
             addForce( ofVec2f(-turnForce, 0) );
+            vel.y = 0;
+            changeDirection();
         }
     }
 }
 
+void Snake::changeDirection() {
+    if (up) {
+        vel.set(0, -desiredSpeed);
+    }
+    else if (right) {
+        vel.set(desiredSpeed, 0);
+    }
+    
+    else if (down) {
+        vel.set(0, desiredSpeed);
+    }
+    
+    else if (left) {
+        vel.set(-desiredSpeed, 0);
+    }
+}
+
 void Snake::update( float dt ) {
+    
     updateTail();
     
     screenBoundaryCheck();

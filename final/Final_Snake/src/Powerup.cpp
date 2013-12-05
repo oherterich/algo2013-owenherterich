@@ -14,8 +14,6 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
     age = 0;
     life = 300;
     
-    timeActive = 3.0;
-    
     c = ofColor(255);
     
     type = _type;
@@ -39,51 +37,61 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
         case 0:
             name = "Bonus";
             img.loadImage("powerups/bonus.png");
+            timeActive = 3.0;
             break;
             
         case 1:
             name = "Short";
             img.loadImage("powerups/shortsnake.png");
+            timeActive = 2.0;
             break;
             
         case 2:
             name = "Slow";
             img.loadImage("powerups/timeslow.png");
+            timeActive = 3.0;
             break;
             
         case 3:
             name = "Invincible";
             img.loadImage("powerups/invincible.png");
+            timeActive = 2.0;
             break;
             
         case 4:
             name = "Bomb";
             img.loadImage("powerups/bomb.png");
+            timeActive = 1.0;
             break;
             
         case 5:
             name = "Fast";
             img.loadImage("powerups/timefast.png");
+            timeActive = 3.0;
             break;
             
         case 6:
             name = "Long";
             img.loadImage("powerups/longsnake.png");
+            timeActive = 2.0;
             break;
             
         case 7:
             name = "Large";
             img.loadImage("powerups/largeobst.png");
+            timeActive = 3.0;
             break;
             
         case 8:
             name = "Invisible";
             img.loadImage("powerups/invisible.png");
+            timeActive = 2.0;
             break;
             
         case 9:
             name = "Wall";
             img.loadImage("powerups/wall.png");
+            timeActive = 3.0;
             break;
     }
     

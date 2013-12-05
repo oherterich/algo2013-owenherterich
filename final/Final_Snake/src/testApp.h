@@ -7,6 +7,7 @@
 #include "Snake.h"
 #include "Obstacle.h"
 #include "Powerup.h"
+#include "Square.h"
 
 class testApp : public ofBaseApp{
 
@@ -104,24 +105,25 @@ class testApp : public ofBaseApp{
     
     void managePowerups(); //Turns on/off powerup switches
     void explodeObstacles(); //Removes obstacles (w/ bomb)
+    void addSquares( ofVec2f pos );
     
     //Snake Powerups
-    bool bIsBonus = false; //DONE
-    bool bIsShort = false; //DONE
-    bool bIsSlow = false; //DONE
-    bool bIsInvincible = false; //DONE
-    bool bIsBomb = false; //DONE
+    bool bIsBonus = false;
+    bool bIsShort = false;
+    bool bIsSlow = false;
+    bool bIsInvincible = false;
+    bool bIsBomb = false;
     
     //Obstacle Powerups
-    bool bIsFast = false; //DONE
-    bool bIsLong = false; //DONE
-    bool bIsLarge = false; //DONE
-    bool bIsInvisible = false; //DONE
-    bool bIsWall = false; //DONE
+    bool bIsFast = false;
+    bool bIsLong = false;
+    bool bIsLarge = false;
+    bool bIsInvisible = false;
+    bool bIsWall = false;
     
     float powerupStartTime;
     float powerupTimeBetween;
-    
+        
     /*********************
         AUDIO STUFF
      **********************/
@@ -134,8 +136,5 @@ class testApp : public ofBaseApp{
     Snake snake;
     Obstacle obstacle;
     vector<Powerup> powerups;
-    
-    vector<ofVec2f> obstacles;
-    float obstacleSize;
-		
+    vector<Square>  squares;
 };
