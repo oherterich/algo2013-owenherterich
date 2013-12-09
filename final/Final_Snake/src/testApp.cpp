@@ -29,7 +29,7 @@ void testApp::setup(){
     scoreModifier = 13;
     
     ofTrueTypeFont::setGlobalDpi(72);
-    bitdustLarge.loadFont("fonts/bitdust2.ttf", 72);
+    bitdustLarge.loadFont("fonts/bitdust2.ttf", 84);
     bitdustMedium.loadFont("fonts/bitdust2.ttf", 36);
     bitdustSmall.loadFont("fonts/bitdust2.ttf", 18);
     
@@ -57,16 +57,55 @@ void testApp::setup(){
         Square s( ofVec2f( ofRandom(-500, -100), ofRandomHeight() ), ofRandom(0, 40) );
         s.vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
         s.damping = 1.0;
-        s.initTrans = 200;
+        s.initTrans = 70;
         s.life = ofRandom(1000, 2500);
+        s.c = ofColor( ofRandom(220, 255) );
         
         squares.push_back( s );
+    }
+    
+    for (int i = 0; i < 25; i++) {
+        LargeShape s( (int)ofRandom(2) );
+        s.pos.set( ofRandomWidth(), ofRandomHeight() );
+        s.vel.set( ofRandom(0, 2), ofRandom(-1, 1) );
+        s.trans = 8;
+        shapes.push_back( s );
     }
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
+    
+    for (int i = 0; i < shapes.size(); i++) {
+        shapes[i].update();
+    }
+    
+    for (int i = 0; i < squares.size(); i++) {
+        if (squares[i].kill()) {
+            squares.erase(squares.begin() + i);
+        }
+        
+        if (squares[i].pos.x > ofGetWindowWidth()) {
+            squares[i].pos.set( ofRandom(-500, -100), ofRandomHeight() );
+            squares[i].vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
+            squares[i].age = 0;
+            squares[i].c = ofColor( ofRandom(220, 255) );
+        }
+        
+        squares[i].update();
+    }
+    
+    if (squares.size() < 300 ) {
+        Square s( ofVec2f( ofRandom(-500, -100), ofRandomHeight() ), ofRandom(0, 40) );
+        s.vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
+        s.damping = 1.0;
+        s.initTrans = 70;
+        s.life = ofRandom(1500, 2000);
+        s.c = ofColor( ofRandom(220, 255) );
+        
+        squares.push_back( s );
+    }
     
     switch (gameState) {
         case 0:
@@ -95,35 +134,13 @@ void testApp::updateIntro() {
     float hTitle = sin(ofGetElapsedTimef() * 0.05) * 100 + 100;
     cTitle.setHsb(hTitle, 230, 255);
     
+    tEnter = ofMap( sin(ofGetElapsedTimef() * 3.5), -1, 1, 0, 255 );
+    
     if ( timeLeft <= 0 ) {
         gameState = 1;
         startGameplayTime = ofGetElapsedTimef();
         powerupStartTime = ofGetElapsedTimef();
         mainSong.play();
-    }
-    
-    for (int i = 0; i < squares.size(); i++) {
-        if (squares[i].kill()) {
-            squares.erase(squares.begin() + i);
-        }
-        
-        if (squares[i].pos.x > ofGetWindowWidth()) {
-            squares[i].pos.set( ofRandom(-500, -100), ofRandomHeight() );
-            squares[i].vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
-            squares[i].age = 0;
-        }
-        
-        squares[i].update();
-    }
-    
-    if (squares.size() < 300 ) {
-        Square s( ofVec2f( ofRandom(-500, -100), ofRandomHeight() ), ofRandom(0, 40) );
-        s.vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
-        s.damping = 1.0;
-        s.initTrans = 200;
-        s.life = ofRandom(1500, 2000);
-        
-        squares.push_back( s );
     }
 }
 
@@ -214,6 +231,10 @@ void testApp::updateGameplay() {
     //If bomb powerup is actived, erase all obstacles on screen
     if (bIsBomb) {
         explodeObstacles();
+    }
+    
+    for ( int i = 0; i < explosionSquares.size(); i++) {
+        explosionSquares[i].update();
     }
     
     //Obstacle stuff
@@ -313,6 +334,20 @@ void testApp::draw(){
         squares[i].draw();
     }
     
+    for (int i = 0; i < shapes.size(); i++) {
+        shapes[i].draw();
+    }
+    
+    ofPushMatrix();{
+        float h = sin(ofGetElapsedTimef() * 0.05) * 100 + 100;
+        ofColor c;
+        c.setHsb(h, 230, 120);
+        ofFill();
+        ofSetColor(c, 30);
+        ofTranslate(ofGetWindowWidth() / 2, ofGetWindowHeight() /2 );
+        ofRect(0,0, ofGetWindowWidth(), ofGetWindowHeight());
+    }ofPopMatrix();
+        
     switch (gameState) {
         case 0:
             drawIntro();
@@ -335,16 +370,18 @@ void testApp::draw(){
 
 void testApp::drawIntro() {
     ofSetColor(cTitle);
-    bitdustLarge.drawString("Super Snake", 350, 340);
+    bitdustLarge.drawString("Super Snake", 300, 400);
     
-    ofSetColor(255);
-    bitdustMedium.drawString("Press Enter to Begin", 385, 490);
+    if (!bIsCountdownTriggered) {
+        ofSetColor(255, tEnter);
+        bitdustMedium.drawString("Press Enter to Begin", 385, 490);
+    }
     
     if ( bIsPlayer1Ready && bIsPlayer2Ready ) {
         introCountdown();
         
         ofSetColor( 255 );
-        bitdustLarge.drawString(ofToString(timeLeft), 600, 680);
+        bitdustLarge.drawString(ofToString(timeLeft), 600, 640);
     }
     
 }
@@ -365,6 +402,10 @@ void testApp::drawGameplay() {
     
     for ( int i = 0; i < powerups.size(); i++) {
         powerups[i].draw();
+    }
+    
+    for ( int i = 0; i < explosionSquares.size(); i++) {
+        explosionSquares[i].draw();
     }
     
     //Draw interface
@@ -552,11 +593,11 @@ void testApp::explodeObstacles() {
 void testApp::addSquares( ofVec2f pos ){
     if (snakePlayer == 1) {
         Square s( pos, 140 );
-        squares.push_back( s );
+        explosionSquares.push_back( s );
     }
     else {
         Square s( pos, 20);
-        squares.push_back( s );
+        explosionSquares.push_back( s );
     }
 }
 

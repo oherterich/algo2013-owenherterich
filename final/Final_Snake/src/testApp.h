@@ -8,6 +8,7 @@
 #include "Obstacle.h"
 #include "Powerup.h"
 #include "Square.h"
+#include "LargeShape.h"
 
 class testApp : public ofBaseApp{
 
@@ -60,6 +61,7 @@ class testApp : public ofBaseApp{
     void introCountdown();
 
     ofColor cTitle;
+    float tEnter;
     
     bool bIsPlayer1Ready;
     bool bIsPlayer2Ready;
@@ -140,4 +142,6 @@ class testApp : public ofBaseApp{
     Obstacle obstacle;
     vector<Powerup> powerups;
     vector<Square>  squares;
+    vector<Square>  explosionSquares;
+    vector<LargeShape> shapes;
 };

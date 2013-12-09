@@ -192,6 +192,13 @@ void Obstacle::update( float dt ) {
     }
     
     theta += 1 * dt * 50;
+    
+    if (obstaclePlayer == 1) {
+        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 230, 255 );
+    }
+    else {
+        c.setHsb( sin(ofGetElapsedTimef()) * 40 + 100, 230, 255 );
+    }
 }
 
 void Obstacle::draw() {
@@ -199,7 +206,7 @@ void Obstacle::draw() {
     drawObstacle();
     
     ofFill();
-    ofSetColor( 255, 100 );
+    ofSetColor( c, 150 );
     ofPushMatrix();
         ofTranslate(pos);
         ofRotate(theta);
