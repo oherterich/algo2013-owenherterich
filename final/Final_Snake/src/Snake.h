@@ -48,6 +48,8 @@ class Snake {
     
         bool    bHasCollided; //if collision occurs, this is true
     
+        int snakePlayer;
+    
         ofColor c;
     
 };

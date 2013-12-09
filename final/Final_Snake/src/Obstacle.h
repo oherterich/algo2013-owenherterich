@@ -13,7 +13,7 @@
 
 class Obstacle {
     public:
-        Obstacle();
+        Obstacle( );
         void update( float dt );
         void draw();
     
@@ -23,10 +23,12 @@ class Obstacle {
         void checkGamepad( int button, int player );
         void screenBoundaryCheck();
         void addObstacle();
-        void updateObstacle();
+        void updateObstacle( float dt );
         void drawObstacle();
     
         ofVec2f pos, vel, acc;
+    
+        float theta;
     
         vector<ObstacleShape> obList;
     
@@ -37,6 +39,10 @@ class Obstacle {
         float damping;
     
         float lastObTime;
+    
+        ofImage player1Ob, player2Ob, transOb;
+    
+        int obstaclePlayer;
     
         ofColor c;
 };

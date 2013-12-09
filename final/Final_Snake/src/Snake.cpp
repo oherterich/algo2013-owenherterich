@@ -10,7 +10,7 @@
 
 Snake::Snake() {
     snakeLength = 25;
-    snakeSize = 5;
+    snakeSize = 15;
     
     pos.set(ofGetWindowSize() / 2);
     vel.set(5, 0);
@@ -27,6 +27,8 @@ Snake::Snake() {
         snakePos.push_back(p);
     }
     
+    snakePlayer = 1;
+    
 }
 
 void Snake::addForce( ofVec2f force ) {
@@ -41,7 +43,7 @@ void Snake::addDamping() {
 
 void Snake::checkCollision( ofVec2f p, float size ) {
 
-    if (pos.distance(p) < size / 2) {
+    if (pos.distance(p) < size) {
         bHasCollided = true;
     }
     
@@ -50,7 +52,7 @@ void Snake::checkCollision( ofVec2f p, float size ) {
 
 void Snake::checkSelfCollision() {
     for ( int i = 0; i < snakePos.size()-1; i++ ) {
-        if (pos.distance(snakePos[i]) < snakeSize / 2) {
+        if (pos.distance(snakePos[i]) < snakeSize / 2 ) {
             bHasCollided = true;
         }
     }
@@ -79,6 +81,18 @@ void Snake::updateTail() {
 
 void Snake::drawTail() {
     for ( int i = 0; i < snakePos.size(); i++ ) {
+        if (snakePlayer == 1) {
+            float r = ofMap(i, 0, snakePos.size()-1, 238, 255);
+            float g = ofMap(i, 0, snakePos.size()-1, 42, 242);
+            float b = ofMap(i, 0, snakePos.size()-1, 123, 0);
+            ofSetColor(r, g, b, 255);
+        }
+        else {
+            float r = ofMap(i, 0, snakePos.size()-1, 0, 146);
+            float g = ofMap(i, 0, snakePos.size()-1, 192, 255);
+            float b = ofMap(i, 0, snakePos.size()-1, 255, 52);
+            ofSetColor(r, g, b, 255);
+        }
         ofRect(snakePos[i], snakeSize, snakeSize);
     }
 }
@@ -212,7 +226,7 @@ void Snake::update( float dt ) {
     updateTail();
     
     screenBoundaryCheck();
-    checkSelfCollision();
+    //checkSelfCollision();
     
     vel += acc;
     pos += ( vel * dt * 50 );

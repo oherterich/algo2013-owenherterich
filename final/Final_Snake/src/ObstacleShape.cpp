@@ -8,13 +8,17 @@
 
 #include "ObstacleShape.h"
 
-ObstacleShape::ObstacleShape( float _size ) {
+ObstacleShape::ObstacleShape( float _size, ofImage *_img, float _theta ) {
     age = 0;
     size = _size;
     c.setHsb(ofRandom(20, 60), 255, 255);
+    
+    theta = _theta;
+    
+    img = _img;
 }
 
-void ObstacleShape::update() {
+void ObstacleShape::update( float dt ) {
     age += 1;
     
     float pct = 1.0 - (age / life);
@@ -26,13 +30,18 @@ void ObstacleShape::update() {
         trans = 255.0;
     }
     
-
+    theta += 1 * dt * 50;
 }
 
 void ObstacleShape::draw() {
     ofFill();
-    ofSetColor(c, trans);
-    ofRect(pos, size, size);
+    //ofSetColor(c, trans);
+    ofSetColor(255, 255);
+    ofPushMatrix();
+        ofTranslate( pos );
+    ofRotate(theta);
+        img->draw(0,0);
+    ofPopMatrix();
 }
 
 bool ObstacleShape::isDead() {

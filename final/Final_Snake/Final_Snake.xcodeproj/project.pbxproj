@@ -46,6 +46,7 @@
 		89898576184EF44C0037C022 /* OIS_vs2010_static.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8989856B184EF44C0037C022 /* OIS_vs2010_static.lib */; };
 		89898577184EF44C0037C022 /* OIS_vs2010_static_d.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8989856C184EF44C0037C022 /* OIS_vs2010_static_d.lib */; };
 		898CB0955CB42FEB5D750A5C /* VerticalTiltShifPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B73DCDAF417A486A343EF /* VerticalTiltShifPass.cpp */; };
+		89B3E1DF18558DA300820147 /* LargeShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89B3E1DD18558DA300820147 /* LargeShape.cpp */; };
 		89EA01731843919F00C489F9 /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89EA01711843919F00C489F9 /* Snake.cpp */; };
 		89EA018418442D2300C489F9 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89EA018018442D2300C489F9 /* Obstacle.cpp */; };
 		89EA018518442D2300C489F9 /* ObstacleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89EA018218442D2300C489F9 /* ObstacleShape.cpp */; };
@@ -238,6 +239,8 @@
 		89898569184EF44C0037C022 /* OIS_static_d.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_static_d.lib; sourceTree = "<group>"; };
 		8989856B184EF44C0037C022 /* OIS_vs2010_static.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_vs2010_static.lib; sourceTree = "<group>"; };
 		8989856C184EF44C0037C022 /* OIS_vs2010_static_d.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OIS_vs2010_static_d.lib; sourceTree = "<group>"; };
+		89B3E1DD18558DA300820147 /* LargeShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LargeShape.cpp; sourceTree = "<group>"; };
+		89B3E1DE18558DA300820147 /* LargeShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeShape.h; sourceTree = "<group>"; };
 		89EA01711843919F00C489F9 /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		89EA01721843919F00C489F9 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		89EA018018442D2300C489F9 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
@@ -817,6 +820,8 @@
 				893C865A184AB5FF003371A4 /* Powerup.h */,
 				89270B8F18513A720047F083 /* Square.cpp */,
 				89270B9018513A720047F083 /* Square.h */,
+				89B3E1DD18558DA300820147 /* LargeShape.cpp */,
+				89B3E1DE18558DA300820147 /* LargeShape.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -960,6 +965,7 @@
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
+				89B3E1DF18558DA300820147 /* LargeShape.cpp in Sources */,
 				79308B05C4D0A9B9E404FFED /* BleachBypassPass.cpp in Sources */,
 				3A499904889C490DCF533C6E /* BloomPass.cpp in Sources */,
 				DFB75F1EBE744A456AC999F4 /* ContrastPass.cpp in Sources */,

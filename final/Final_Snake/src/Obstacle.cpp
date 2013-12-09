@@ -8,17 +8,25 @@
 
 #include "Obstacle.h"
 
-Obstacle::Obstacle() {
+Obstacle::Obstacle( ) {
     pos.set(ofGetWindowSize() / 2);
     vel.set( 0 );
     
-    obSize = 50.0;
+    theta = 0;
+    
+    obSize = 100.0;
     obLife = 400.0;
     
     moveForce = 11.0;
     damping = 0.95;
     
     lastObTime = ofGetElapsedTimef();
+    
+    player1Ob.loadImage("img/player1_obst.png");
+    player2Ob.loadImage("img/player2_obst.png");
+    transOb.loadImage("img/shadow_obst.png");
+    
+    obstaclePlayer = 2;
     
     c.set(255,255,0);
 }
@@ -133,23 +141,32 @@ void Obstacle::screenBoundaryCheck() {
 
 void Obstacle::addObstacle() {
     if (ofGetElapsedTimef() - lastObTime > 0.2) {
-        ObstacleShape ob(obSize);
-        ob.pos.set( pos );
-        ob.life = obLife;
-        
-        obList.push_back( ob );
+        if ( obstaclePlayer == 1 ) {
+            ObstacleShape ob(obSize, &player1Ob, theta);
+            ob.pos.set( pos );
+            ob.life = obLife;
+            
+            obList.push_back( ob );
+        }
+        else {
+            ObstacleShape ob(obSize, &player2Ob, theta);
+            ob.pos.set( pos );
+            ob.life = obLife;
+            
+            obList.push_back( ob );
+        }
         
         lastObTime = ofGetElapsedTimef();
     }
 }
 
-void Obstacle::updateObstacle() {
+void Obstacle::updateObstacle( float dt ) {
     for ( int i = 0; i < obList.size(); i++ ) {
         if (obList[i].isDead()) {
             obList.erase(obList.begin() + i);
         }
         else {
-            obList[i].update();
+            obList[i].update( dt );
         }
     }
 }
@@ -163,7 +180,7 @@ void Obstacle::drawObstacle() {
 void Obstacle::update( float dt ) {
     screenBoundaryCheck();
     
-    updateObstacle();
+    updateObstacle( dt );
     
     vel += acc;
     pos += (vel * dt * 50);
@@ -173,6 +190,8 @@ void Obstacle::update( float dt ) {
     if (vel.x > 10.0 || vel.x < -10.0 || vel.y > 10.0 || vel.y < -10.0) {
         addDamping();
     }
+    
+    theta += 1 * dt * 50;
 }
 
 void Obstacle::draw() {
@@ -180,6 +199,10 @@ void Obstacle::draw() {
     drawObstacle();
     
     ofFill();
-    ofSetColor( c, 100 );
-    ofRect(pos, obSize, obSize);
+    ofSetColor( 255, 100 );
+    ofPushMatrix();
+        ofTranslate(pos);
+        ofRotate(theta);
+        transOb.draw(0,0);
+    ofPopMatrix();
 }

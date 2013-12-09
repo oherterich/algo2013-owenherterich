@@ -8,7 +8,7 @@
 
 #include "Square.h"
 
-Square::Square( ofVec2f _pos ) {
+Square::Square( ofVec2f _pos, int hue ) {
     pos = _pos;
     vel.set(ofRandom(-6, 6), ofRandom(-6, 6));
     
@@ -18,8 +18,9 @@ Square::Square( ofVec2f _pos ) {
     
     damping = ofRandom(0.95, 0.99);
     
-    c.setHsb(ofRandom(0, 40), 230, 255);
+    c.setHsb(ofRandom(hue-20, hue+20), 230, 255);
     trans = 255;
+    initTrans = 255;
 }
 
 void Square::addForce( ofVec2f force ) {
@@ -28,7 +29,7 @@ void Square::addForce( ofVec2f force ) {
 
 void Square::update() {
     float pct = age / life;
-    trans = 255 * (1.0 - pct);
+    trans = initTrans * (1.0 - pct);
     
     float noise = ofNoise(pos.x * 0.005, pos.y*0.005, ofGetElapsedTimef() * 0.1) * ofRandom(5, 15);
     

@@ -12,7 +12,7 @@
 
 class Square {
     public:
-        Square( ofVec2f _pos );
+        Square( ofVec2f _pos, int hue );
         void update();
         void draw();
         void addForce( ofVec2f force );
@@ -27,4 +27,5 @@ class Square {
     
         ofColor c;
         float trans;
+        float initTrans;
 };

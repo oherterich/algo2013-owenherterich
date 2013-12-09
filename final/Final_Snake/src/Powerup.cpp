@@ -8,7 +8,7 @@
 
 #include "Powerup.h"
 
-Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
+Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
     iconSize = 100;
     trans = 255;
     age = 0;
@@ -25,6 +25,8 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
     nameSize = 0.8;
     nameHue = 20.0;
     
+    snakePlayer = _snakePlayer;
+    
     int rand;
     if (bIsSnake) {
         rand = ofRandom(5);
@@ -36,61 +38,61 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type ) {
     switch (rand) {
         case 0:
             name = "Bonus";
-            img.loadImage("powerups/bonus.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_bonus.png");
             timeActive = 3.0;
             break;
             
         case 1:
             name = "Short";
-            img.loadImage("powerups/shortsnake.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_shortsnake.png");
             timeActive = 2.0;
             break;
             
         case 2:
             name = "Slow";
-            img.loadImage("powerups/timeslow.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_timeslow.png");
             timeActive = 3.0;
             break;
             
         case 3:
             name = "Invincible";
-            img.loadImage("powerups/invincible.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_invincible.png");
             timeActive = 2.0;
             break;
             
         case 4:
             name = "Bomb";
-            img.loadImage("powerups/bomb.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_bomb.png");
             timeActive = 1.0;
             break;
             
         case 5:
             name = "Fast";
-            img.loadImage("powerups/timefast.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_timefast.png");
             timeActive = 3.0;
             break;
             
         case 6:
             name = "Long";
-            img.loadImage("powerups/longsnake.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_longsnake.png");
             timeActive = 2.0;
             break;
             
         case 7:
             name = "Large";
-            img.loadImage("powerups/largeobst.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_largeobst.png");
             timeActive = 3.0;
             break;
             
         case 8:
             name = "Invisible";
-            img.loadImage("powerups/invisible.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_invisible.png");
             timeActive = 2.0;
             break;
             
         case 9:
             name = "Wall";
-            img.loadImage("powerups/wall.png");
+            img.loadImage("img/powerups/player" + ofToString(snakePlayer) + "_wall.png");
             timeActive = 3.0;
             break;
     }

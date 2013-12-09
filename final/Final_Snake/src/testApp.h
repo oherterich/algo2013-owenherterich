@@ -50,6 +50,8 @@ class testApp : public ofBaseApp{
     float lastTime;
     float timeScale;
     
+    ofImage background;
+    
     /*********************
         INTRO STUFF
     **********************/
@@ -79,6 +81,7 @@ class testApp : public ofBaseApp{
     float elapsedGameplayTime; //How long have you been playing?
     
     int snakePlayer; //Who is playing as the snake?
+    int obstaclePlayer; //Who is playing as the obstacle?
     
     int scoreModifier; //Increase for faster points
     float currentTimeScale; //Keep track of orig. game speed
