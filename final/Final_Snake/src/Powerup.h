@@ -46,6 +46,8 @@ public:
     
     int snakePlayer;
     
+    float howLong;
+    
     ofColor c;
     ofTrueTypeFont *type;
 };

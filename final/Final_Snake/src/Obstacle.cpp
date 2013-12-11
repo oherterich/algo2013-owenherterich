@@ -14,7 +14,7 @@ Obstacle::Obstacle( ) {
     
     theta = 0;
     
-    obSize = 100.0;
+    obSize = 0.5;
     obLife = 400.0;
     
     moveForce = 11.0;
@@ -194,10 +194,10 @@ void Obstacle::update( float dt ) {
     theta += 1 * dt * 50;
     
     if (obstaclePlayer == 1) {
-        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 230, 255 );
+        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 200, 255 );
     }
     else {
-        c.setHsb( sin(ofGetElapsedTimef()) * 40 + 100, 230, 255 );
+        c.setHsb( sin(ofGetElapsedTimef()) * 40 + 100, 200, 255 );
     }
 }
 
@@ -210,6 +210,7 @@ void Obstacle::draw() {
     ofPushMatrix();
         ofTranslate(pos);
         ofRotate(theta);
+        ofScale(obSize, obSize, obSize);
         transOb.draw(0,0);
     ofPopMatrix();
 }

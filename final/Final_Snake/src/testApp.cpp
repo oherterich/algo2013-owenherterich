@@ -40,13 +40,15 @@ void testApp::setup(){
     background.loadImage("img/background.png");
     
     currentSnakeLength = 25;
-    currentObstacleSize = 50;
+    currentObstacleSize = 0.5;
     
     powerupStartTime = 0.0;
     powerupTimeBetween = 5.0;
     
     bIsPlayer1Ready = false;
     bIsPlayer2Ready = false;
+    
+    originalObstacleSize = 150.0;
     
     timeLeft = 5;
     
@@ -57,7 +59,7 @@ void testApp::setup(){
         Square s( ofVec2f( ofRandom(-500, -100), ofRandomHeight() ), ofRandom(0, 40) );
         s.vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
         s.damping = 1.0;
-        s.initTrans = 70;
+        s.initTrans = 100;
         s.life = ofRandom(1000, 2500);
         s.c = ofColor( ofRandom(220, 255) );
         
@@ -68,7 +70,7 @@ void testApp::setup(){
         LargeShape s( (int)ofRandom(2) );
         s.pos.set( ofRandomWidth(), ofRandomHeight() );
         s.vel.set( ofRandom(0, 2), ofRandom(-1, 1) );
-        s.trans = 8;
+        s.trans = 10;
         shapes.push_back( s );
     }
     
@@ -100,7 +102,7 @@ void testApp::update(){
         Square s( ofVec2f( ofRandom(-500, -100), ofRandomHeight() ), ofRandom(0, 40) );
         s.vel.set( ofRandom( 0, 2 ), ofRandom(-1, 1 ) );
         s.damping = 1.0;
-        s.initTrans = 70;
+        s.initTrans = 100;
         s.life = ofRandom(1500, 2000);
         s.c = ofColor( ofRandom(220, 255) );
         
@@ -190,7 +192,7 @@ void testApp::updateGameplay() {
     //Only check the collision if the invincible powerup is not active though
     if (!bIsInvincible) {
         for( int i = 0; i < obstacle.obList.size(); i++ ) {
-            snake.checkCollision(obstacle.obList[i].pos, obstacle.obSize);
+            snake.checkCollision(obstacle.obList[i].pos, obstacle.obList[i].size * originalObstacleSize);
         }
     }
     
@@ -210,10 +212,14 @@ void testApp::updateGameplay() {
     managePowerups();
 
     for (int i = 0; i < powerups.size(); i++) {
-        if ( powerups[i].isDead() ) {
-            powerups.erase(powerups.begin() + i);
+        if (powerups[i].bIsActive) {
+            powerups[i].timer();
         }
         else {
+            if ( powerups[i].isDead() ) {
+                powerups.erase(powerups.begin() + i);
+            }
+            
             powerups[i].checkCollision(snake.pos, obstacle.pos);
             powerups[i].update();
         }
@@ -365,7 +371,6 @@ void testApp::draw(){
             drawEnd();
             break;
     }
-    
 }
 
 void testApp::drawIntro() {
@@ -407,6 +412,22 @@ void testApp::drawGameplay() {
     for ( int i = 0; i < explosionSquares.size(); i++) {
         explosionSquares[i].draw();
     }
+    
+    
+    ofSetColor(255);
+    if (bIsInvincible) {
+        ofDrawBitmapString("Invincible", ofPoint(200, 200) );
+    }
+    
+    if (bIsInvisible) {
+        invisibleLength += 1 / ofGetFrameRate();
+        ofDrawBitmapString("Invisible: " + ofToString(invisibleLength), ofPoint(200, 220) );
+    }
+    else {
+        invisibleLength = 0;
+    }
+    
+    
     
     //Draw interface
     ofSetColor(255);
@@ -472,7 +493,8 @@ void testApp::resetGameplay() {
     startCountdown = ofGetElapsedTimef();
     
     //Reset snake attributes
-    snake.pos = ofGetWindowSize() /2;
+    snake.pos.set(100, ofGetWindowHeight() / 2);
+    snake.vel.set(5, 0);
     snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.end() - 25);
     
     for (int i = 0; i < snake.snakePos.size(); i++) {
@@ -481,9 +503,11 @@ void testApp::resetGameplay() {
     
     //Destroy all obstacles and reset their attributes.
     obstacle.obList.clear();
-    obstacle.obSize = 50.0;
+    obstacle.obSize = 0.5;
     obstacle.obLife = 250.0;
     obstacle.moveForce = 5.0;
+    obstacle.pos = ofGetWindowSize() / 2;
+    obstacle.vel.set( 0, 0 );
     
     timeScale = 1.0;
     currentTimeScale = 1.0;

@@ -89,7 +89,11 @@ class testApp : public ofBaseApp{
     float currentTimeScale; //Keep track of orig. game speed
     
     int currentSnakeLength; //Keep track of orig. snake length
-    int currentObstacleSize; //Keep track of orig. obst. size
+    float currentObstacleSize; //Keep track of orig. obst. size
+ 
+    float originalObstacleSize; //Original size, in px
+    
+    float invisibleLength;
     
     /*********************
         INTERLUDE  STUFF

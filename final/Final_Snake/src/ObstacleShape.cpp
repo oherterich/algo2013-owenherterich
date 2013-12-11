@@ -14,6 +14,7 @@ ObstacleShape::ObstacleShape( float _size, ofImage *_img, float _theta ) {
     c.setHsb(ofRandom(20, 60), 255, 255);
     
     theta = _theta;
+    thetaSpeed = ofRandom( 0.5, 1.5 );
     
     img = _img;
 }
@@ -30,7 +31,7 @@ void ObstacleShape::update( float dt ) {
         trans = 255.0;
     }
     
-    theta += 1 * dt * 50;
+    theta += thetaSpeed * dt * 50;
 }
 
 void ObstacleShape::draw() {
@@ -39,7 +40,8 @@ void ObstacleShape::draw() {
     ofSetColor(255, 255);
     ofPushMatrix();
         ofTranslate( pos );
-    ofRotate(theta);
+        ofRotate(theta);
+        ofScale(size, size, size);
         img->draw(0,0);
     ofPopMatrix();
 }

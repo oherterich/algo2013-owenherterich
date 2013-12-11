@@ -21,6 +21,7 @@ class ObstacleShape {
     float size;
     
     float theta;
+    float thetaSpeed;
     
     float age;
     float life;

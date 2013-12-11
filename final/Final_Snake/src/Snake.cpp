@@ -43,7 +43,7 @@ void Snake::addDamping() {
 
 void Snake::checkCollision( ofVec2f p, float size ) {
 
-    if (pos.distance(p) < size) {
+    if (pos.distance(p) < size / 2) {
         bHasCollided = true;
     }
     

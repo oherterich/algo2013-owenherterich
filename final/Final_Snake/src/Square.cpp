@@ -12,7 +12,7 @@ Square::Square( ofVec2f _pos, int hue ) {
     pos = _pos;
     vel.set(ofRandom(-6, 6), ofRandom(-6, 6));
     
-    size = ofRandom(1, 3);
+    size = ofRandom(2, 4);
     age = 0;
     life = ofRandom(30, 70);
     

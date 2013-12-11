@@ -23,16 +23,28 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
     
     nameTrans = 255.0;
     nameSize = 0.8;
-    nameHue = 20.0;
     
     snakePlayer = _snakePlayer;
+    
     
     int rand;
     if (bIsSnake) {
         rand = ofRandom(5);
+        if (snakePlayer == 1) {
+            nameHue = 100.0;
+        }
+        else {
+            nameHue = 20.0;
+        }
     }
     else {
-        rand = ofRandom(5, 10);
+        rand = ofRandom(8, 9);
+        if (snakePlayer == 1) {
+            nameHue = 100.0;
+        }
+        else {
+            nameHue = 20.0;
+        }
     }
     
     switch (rand) {
@@ -117,9 +129,11 @@ void Powerup::checkCollision( ofVec2f snake, ofVec2f obstacle ) {
 }
 
 void Powerup::timer() {
+    
     if (ofGetElapsedTimef() - startActive >= timeActive) {
         bIsActive = false;
-        age += 250;
+        age += 1000;
+        howLong = 0;
     }
 }
 
@@ -171,7 +185,7 @@ void Powerup::draw() {
     ofSetColor(c, trans);
     ofPushMatrix();{
         ofTranslate(pos);
-        if (!bIsActive) {
+        if (!bIsActive && age < life) {
             img.draw(0,0);
         }
     }ofPopMatrix();
