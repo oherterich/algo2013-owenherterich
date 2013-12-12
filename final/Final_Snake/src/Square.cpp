@@ -44,6 +44,7 @@ void Square::update() {
 }
 
 void Square::draw() {
+    ofFill();
     ofSetColor(c, trans);
     ofRect( pos, size, size);
 }

@@ -8,7 +8,7 @@
 
 #include "Powerup.h"
 
-Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
+Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer, ofSoundPlayer *_pickup ) {
     iconSize = 100;
     trans = 255;
     age = 0;
@@ -17,6 +17,7 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
     c = ofColor(255);
     
     type = _type;
+    pickup = _pickup;
     
     bIsActive = false;
     bIsSnake = _bIsSnake;
@@ -38,7 +39,7 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
         }
     }
     else {
-        rand = ofRandom(8, 9);
+        rand = ofRandom(5, 10);
         if (snakePlayer == 1) {
             nameHue = 100.0;
         }
@@ -109,7 +110,7 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer ) {
             break;
     }
     
-    pos.set(ofRandomWidth(), ofRandomHeight());
+    pos.set(ofRandom(100, ofGetWindowWidth() - 100), ofRandom(100, ofGetWindowHeight() - 100));
 }
 
 void Powerup::checkCollision( ofVec2f snake, ofVec2f obstacle ) {
@@ -118,12 +119,14 @@ void Powerup::checkCollision( ofVec2f snake, ofVec2f obstacle ) {
         if ( pos.distance(snake) < iconSize / 2) {
             bIsActive = true;
             startActive = ofGetElapsedTimef();
+            pickup->play();
         }
     }
     else {
         if ( pos.distance(obstacle) < iconSize / 2) {
             bIsActive = true;
             startActive = ofGetElapsedTimef();
+            pickup->play();
         }
     }
 }

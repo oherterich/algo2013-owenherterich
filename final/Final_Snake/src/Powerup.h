@@ -12,7 +12,7 @@
 
 class Powerup {
 public:
-    Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer );
+    Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer, ofSoundPlayer *_pickup );
     void update();
     void draw();
     
@@ -50,4 +50,6 @@ public:
     
     ofColor c;
     ofTrueTypeFont *type;
+    
+    ofSoundPlayer *pickup;
 };

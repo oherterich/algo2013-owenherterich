@@ -170,6 +170,7 @@ void Snake::checkGamepad( int button, int player ) {
             addForce( ofVec2f(0, -turnForce) );
             vel.x = 0;
             changeDirection();
+            return;
         }
         
         else if (button == 3 && vel.x == 0) {
@@ -180,6 +181,7 @@ void Snake::checkGamepad( int button, int player ) {
             addForce( ofVec2f(turnForce, 0) );
             vel.y = 0;
             changeDirection();
+            return;
         }
         
         else if (button == 1 && vel.y == 0) {
@@ -190,6 +192,7 @@ void Snake::checkGamepad( int button, int player ) {
             addForce( ofVec2f(0, turnForce) );
             vel.x = 0;
             changeDirection();
+            return;
         }
         
         else if (button == 2 && vel.x == 0) {
@@ -200,6 +203,7 @@ void Snake::checkGamepad( int button, int player ) {
             addForce( ofVec2f(-turnForce, 0) );
             vel.y = 0;
             changeDirection();
+            return;
         }
     }
 }

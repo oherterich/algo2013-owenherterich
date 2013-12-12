@@ -11,10 +11,16 @@ void testApp::setup(){
 	
 	//CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
 	if(ofxGamepadHandler::get()->getNumPads()>0){
-        ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
+        pad = ofxGamepadHandler::get()->getGamepad(0);
         ofAddListener(pad->onAxisChanged, this, &testApp::axisChanged);
         ofAddListener(pad->onButtonPressed, this, &testApp::buttonPressed);
         ofAddListener(pad->onButtonReleased, this, &testApp::buttonReleased);
+	}
+    if(ofxGamepadHandler::get()->getNumPads()>1){
+        pad2 = ofxGamepadHandler::get()->getGamepad(0);
+        ofAddListener(pad2->onAxisChanged, this, &testApp::axisChanged);
+        ofAddListener(pad2->onButtonPressed, this, &testApp::buttonPressed);
+        ofAddListener(pad2->onButtonReleased, this, &testApp::buttonReleased);
 	}
     
     gameState = 0; //Intro
@@ -37,6 +43,8 @@ void testApp::setup(){
     timeScale = 1.0;
     currentTimeScale = 1.0;
     
+    screenMiddle.set(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
+    
     background.loadImage("img/background.png");
     
     currentSnakeLength = 25;
@@ -53,6 +61,22 @@ void testApp::setup(){
     timeLeft = 5;
     
     mainSong.loadSound("audio/akumulator.mp3");
+    mainSong.setVolume(0.8);
+    
+    bomb.loadSound("audio/effects/bomb.wav");
+    countdown.loadSound("audio/effects/countdown.wav");
+    countdown.setVolume(0.6);
+    place_obstacle.loadSound("audio/effects/place_obstacle.wav");
+    place_obstacle.setMultiPlay(true);
+    powerup_pickup.loadSound("audio/effects/powerup_pickup.wav");
+    powerup_pickup.setMultiPlay(true);
+    powerup_pickup.setVolume(0.8);
+    powerup_spawn.loadSound("audio/effects/powerup_spawn.wav");
+    powerup_spawn.setMultiPlay(true);
+    powerup_spawn.setVolume(0.4);
+    snake_collide.loadSound("audio/effects/snake_collide.wav");
+    start_round.loadSound("audio/effects/start_round.wav");
+    start_round.setVolume(0.8);
     
     //Add some initial particles
     for (int i = 0; i < 300; i++) {
@@ -142,6 +166,7 @@ void testApp::updateIntro() {
         gameState = 1;
         startGameplayTime = ofGetElapsedTimef();
         powerupStartTime = ofGetElapsedTimef();
+        start_round.play();
         mainSong.play();
     }
 }
@@ -226,12 +251,14 @@ void testApp::updateGameplay() {
     }
     
     if (ofGetElapsedTimef() - powerupStartTime > powerupTimeBetween) {
-        Powerup p1(true, &bitdustLarge, snakePlayer);
-        Powerup p2(false, &bitdustLarge, obstaclePlayer);
+        Powerup p1(true, &bitdustLarge, snakePlayer, &powerup_pickup);
+        Powerup p2(false, &bitdustLarge, obstaclePlayer, &powerup_pickup);
         powerups.push_back( p1 );
         powerups.push_back( p2 );
         
         powerupStartTime = ofGetElapsedTimef();
+        
+        powerup_spawn.play();
     }
     
     //If bomb powerup is actived, erase all obstacles on screen
@@ -371,15 +398,20 @@ void testApp::draw(){
             drawEnd();
             break;
     }
+    if ( bToggleMiddleLine ){
+    ofSetColor(255,0,0);
+    ofLine(0, screenMiddle.y, ofGetWindowWidth(), screenMiddle.y);
+    ofLine(screenMiddle.x, 0, screenMiddle.x, ofGetWindowHeight());
+    }
 }
 
 void testApp::drawIntro() {
     ofSetColor(cTitle);
-    bitdustLarge.drawString("Super Snake", 300, 400);
+    bitdustLarge.drawString("Super Snake", screenMiddle.x - 340, screenMiddle.y);
     
     if (!bIsCountdownTriggered) {
         ofSetColor(255, tEnter);
-        bitdustMedium.drawString("Press Enter to Begin", 385, 490);
+        bitdustMedium.drawString("Press Enter to Begin", screenMiddle.x-250, screenMiddle.y + 150);
     }
     
     if ( bIsPlayer1Ready && bIsPlayer2Ready ) {
@@ -414,56 +446,43 @@ void testApp::drawGameplay() {
     }
     
     
-    ofSetColor(255);
-    if (bIsInvincible) {
-        ofDrawBitmapString("Invincible", ofPoint(200, 200) );
-    }
-    
-    if (bIsInvisible) {
-        invisibleLength += 1 / ofGetFrameRate();
-        ofDrawBitmapString("Invisible: " + ofToString(invisibleLength), ofPoint(200, 220) );
-    }
-    else {
-        invisibleLength = 0;
-    }
-    
-    
-    
     //Draw interface
     ofSetColor(255);
     bitdustMedium.drawString("TIME: " + nf(elapsedGameplayTime), 20, 40);
     
     ofSetColor(255);
-    bitdustMedium.drawString("ROUND " + ofToString(roundNum), 400, 40);
+    bitdustMedium.drawString("ROUND " + ofToString(roundNum), screenMiddle.x - 200, 40);
     
-    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 830, 40);
-    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 830, 80);
+    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), ofGetWindowWidth() - 460, 40);
+    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), ofGetWindowWidth() - 460, 80);
 }
 
 void testApp::drawInterlude() {
     ofSetColor(255);
-    bitdustLarge.drawString("ROUND " + ofToString(roundNum) + " END" , 360, 200);
+    bitdustLarge.drawString("ROUND " + ofToString(roundNum) + " END" , screenMiddle.x - 310, screenMiddle.y - 200);
     
     ofNoFill();
     ofSetLineWidth(6.0);
-    ofRect(ofGetWindowWidth() / 2, 350, 490, 150);
-    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), 430, 340);
-    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), 430, 390);
+    ofRect(screenMiddle.x, screenMiddle.y - 50, 490, 150);
+    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), screenMiddle.x - 215, screenMiddle.y - 65);
+    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), screenMiddle.x - 215, screenMiddle.y - 15);
     
-    bitdustMedium.drawString("CONTINUE IN", 500, 550);
-    bitdustLarge.drawString(ofToString(timeLeft), 600, 650);
+    bitdustMedium.drawString("CONTINUE IN", screenMiddle.x - 135, screenMiddle.y + 150);
+    bitdustLarge.drawString(ofToString(timeLeft), screenMiddle.x - 25, screenMiddle.y + 250);
 }
 
 void testApp::drawEnd() {
     ofSetColor(255);
     
     if (player1Score > player2Score) {
-        bitdustLarge.drawString("PLAYER 1 IS THE WINNER", 100, ofGetWindowHeight() / 2);
-        bitdustSmall.drawString("SORRY PLAYER 2. YOU WEREN'T GOOD ENOUGH.", 380, 500);
+        bitdustLarge.drawString("PLAYER 1 IS", screenMiddle.x - 300, screenMiddle.y);
+        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y + 80);
+        bitdustSmall.drawString("SORRY PLAYER 2. YOU WEREN'T GOOD ENOUGH.", screenMiddle.x - 250, screenMiddle.y + 170);
     }
     else {
-        bitdustLarge.drawString("PLAYER 2 IS THE WINNER", 100, ofGetWindowHeight() / 2);
-        bitdustSmall.drawString("SORRY PLAYER 1. YOU WEREN'T GOOD ENOUGH.", 380, 500);
+        bitdustLarge.drawString("PLAYER 2 IS", screenMiddle.x - 325, screenMiddle.y);
+        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y + 80);
+        bitdustSmall.drawString("SORRY PLAYER 1. YOU WEREN'T GOOD ENOUGH.", screenMiddle.x - 250, screenMiddle.y + 170);
     }
 }
 
@@ -478,6 +497,7 @@ void testApp::introCountdown() {
     
     if (prevTime != currentTime) {
         timeLeft--;
+        countdown.play();
     }
     
     prevTime = currentTime;
@@ -488,6 +508,7 @@ void testApp::resetGameplay() {
     gameState = 2;
     snake.bHasCollided = false;
     
+    snake_collide.play();
     
     timeLeft = 5;
     startCountdown = ofGetElapsedTimef();
@@ -611,6 +632,7 @@ void testApp::explodeObstacles() {
             }
         }
         obstacle.obList.clear();
+        bomb.play();
     }
 }
 
@@ -654,6 +676,10 @@ void testApp::keyPressed(int key){
             
         case '3':
             gameState = 3;
+            break;
+            
+        case 'l':
+            bToggleMiddleLine = !bToggleMiddleLine;
             break;
     }
     
@@ -702,8 +728,8 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
 
-    Powerup p1(true, &bitdustLarge, snakePlayer);
-    Powerup p2(false, &bitdustLarge, obstaclePlayer);
+    Powerup p1(true, &bitdustLarge, snakePlayer, &powerup_pickup);
+    Powerup p2(false, &bitdustLarge, obstaclePlayer, &powerup_pickup);
     powerups.push_back( p1 );
     powerups.push_back( p2 );
 }
@@ -740,10 +766,8 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
                         snake.checkGamepad(1, 1);
                     }
                 }
-                //obstacle.checkKeyPress( key, 2 );
             }
             else if ( snakePlayer == 2 ) {
-                //snake.checkKeyPress( key, 2 );
                 if ( e.axis == 2 ) {
                     if ( e.value < -0.95 ) {
                         obstacle.checkGamepad(2, 1);
@@ -790,12 +814,14 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
             
         case 1:
             if ( snakePlayer == 1 ) {
-                snake.checkGamepad((int)e.button, 1);
-                //obstacle.checkKeyPress( key, 2 );
+                if ( e.button == 11 ){
+                    snake.checkGamepad((int)e.button, 1);
+                }
             }
             else if ( snakePlayer == 2 ) {
-                //snake.checkKeyPress( key, 2 );
-                obstacle.checkGamepad((int)e.button, 1);
+                if ( e.button == 11 ){
+                    obstacle.checkGamepad((int)e.button, 1);
+                }
             }
             break;
             
@@ -803,6 +829,114 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
             break;
             
         case 3:
+            if ( e.button == 11) {
+                player1Score = 0;
+                player2Score = 0;
+                snakePlayer = 1;
+                obstaclePlayer = 2;
+                resetGameplay();
+                gameState == 0;
+            }
+            break;
+    }
+}
+
+void testApp::axisChanged2(ofxGamepadAxisEvent& e)
+{
+	switch (gameState) {
+        case 0:
+            break;
+            
+        case 1:
+            if ( snakePlayer == 2 ) {
+                if ( e.axis == 2 ) {
+                    if ( e.value < -0.95 ) {
+                        snake.checkGamepad(2, 1);
+                    }
+                    else if ( e.value > 0.95) {
+                        snake.checkGamepad(3, 1);
+                    }
+                }
+                
+                if ( e.axis == 3 ) {
+                    if ( e.value < -0.95 ) {
+                        snake.checkGamepad(0, 1);
+                    }
+                    else if ( e.value > 0.95) {
+                        snake.checkGamepad(1, 1);
+                    }
+                }
+            }
+            else if ( snakePlayer == 1 ) {
+                if ( e.axis == 2 ) {
+                    if ( e.value < -0.95 ) {
+                        obstacle.checkGamepad(2, 1);
+                    }
+                    else if ( e.value > 0.95) {
+                        obstacle.checkGamepad(3, 1);
+                    }
+                }
+                
+                if ( e.axis == 3 ) {
+                    if ( e.value < -0.95 ) {
+                        obstacle.checkGamepad(0, 1);
+                    }
+                    else if ( e.value > 0.95) {
+                        obstacle.checkGamepad(1, 1);
+                    }
+                }
+            }
+            break;
+            
+        case 2:
+            break;
+            
+        case 3:
+            break;
+    }
+    
+}
+
+void testApp::buttonPressed2(ofxGamepadButtonEvent& e)
+{
+    
+}
+
+void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
+{
+    switch (gameState) {
+        case 0:
+            if ( e.button == 11) {
+                bIsPlayer1Ready = true;
+                bIsPlayer2Ready = true;
+            }
+            break;
+            
+        case 1:
+            if ( snakePlayer == 2 ) {
+                if ( e.button == 11 ){
+                    snake.checkGamepad((int)e.button, 1);
+                }
+            }
+            else if ( snakePlayer == 1 ) {
+                if ( e.button == 11 ){
+                    obstacle.checkGamepad((int)e.button, 1);
+                }
+            }
+            break;
+            
+        case 2:
+            break;
+            
+        case 3:
+            if ( e.button == 11) {
+                player1Score = 0;
+                player2Score = 0;
+                snakePlayer = 1;
+                obstaclePlayer = 2;
+                resetGameplay();
+                gameState == 0;
+            }
             break;
     }
 }

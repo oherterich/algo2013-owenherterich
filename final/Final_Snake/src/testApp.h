@@ -16,10 +16,6 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-    
-        void axisChanged(ofxGamepadAxisEvent &e);
-        void buttonPressed(ofxGamepadButtonEvent &e);
-        void buttonReleased(ofxGamepadButtonEvent &e);
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -71,6 +67,9 @@ class testApp : public ofBaseApp{
     int timeLeft;
     int currentTime;
     int prevTime;
+    
+    ofPoint screenMiddle;
+    bool bToggleMiddleLine;
     
     /*********************
         GAMEPLAY STUFF
@@ -137,7 +136,23 @@ class testApp : public ofBaseApp{
         AUDIO STUFF
      **********************/
     ofSoundPlayer mainSong;
+    ofSoundPlayer bomb, countdown, place_obstacle, powerup_pickup, powerup_spawn, snake_collide, start_round; //Effects
     
+    
+    /*********************
+        GAMEPAD STUFF
+     **********************/
+    ofxGamepad* pad;
+    ofxGamepad* pad2;
+    
+    void axisChanged(ofxGamepadAxisEvent &e);
+    void buttonPressed(ofxGamepadButtonEvent &e);
+    void buttonReleased(ofxGamepadButtonEvent &e);
+    
+    void axisChanged2(ofxGamepadAxisEvent &e);
+    void buttonPressed2(ofxGamepadButtonEvent &e);
+    void buttonReleased2(ofxGamepadButtonEvent &e);
+
     
     
     string nf(float number);

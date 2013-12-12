@@ -26,6 +26,8 @@ Obstacle::Obstacle( ) {
     player2Ob.loadImage("img/player2_obst.png");
     transOb.loadImage("img/shadow_obst.png");
     
+    placeOb.loadSound("audio/effects/place_obstacle.wav");
+    
     obstaclePlayer = 2;
     
     c.set(255,255,0);
@@ -89,6 +91,7 @@ void Obstacle::checkKeyPress( int key, int player ) {
         
         if ( key == ' ' ) {
             addObstacle();
+            placeOb.play();
         }
     }
 }
