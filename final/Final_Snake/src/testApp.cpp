@@ -46,6 +46,12 @@ void testApp::setup(){
     screenMiddle.set(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
     
     background.loadImage("img/background.png");
+    instructions01.loadImage("img/instructions_01.png");
+    instructions02.loadImage("img/instructions_02.png");
+    player1Snake.loadImage("img/player1_snake.png");
+    player2Snake.loadImage("img/player2_snake.png");
+    player1Obstacle.loadImage("img/player1_obst.png");
+    player2Obstacle.loadImage("img/player2_obst.png");
     
     currentSnakeLength = 25;
     currentObstacleSize = 0.5;
@@ -58,10 +64,10 @@ void testApp::setup(){
     
     originalObstacleSize = 150.0;
     
-    timeLeft = 5;
+    timeLeft = 6;
     
     mainSong.loadSound("audio/akumulator.mp3");
-    mainSong.setVolume(0.8);
+    mainSong.setVolume(0.7);
     
     bomb.loadSound("audio/effects/bomb.wav");
     countdown.loadSound("audio/effects/countdown.wav");
@@ -148,6 +154,14 @@ void testApp::update(){
             
         case 3:
             updateEnd();
+            break;
+            
+        case 4:
+            updateInst1();
+            break;
+            
+        case 5:
+            updateInst2();
             break;
     }
     
@@ -354,6 +368,14 @@ void testApp::updateEnd() {
     
 }
 
+void testApp::updateInst1() {
+    
+}
+
+void testApp::updateInst2() {
+    
+}
+
 //--------------------------------------------------------------
 void testApp::draw(){
     ofSetColor(255,255);
@@ -396,6 +418,14 @@ void testApp::draw(){
             
         case 3:
             drawEnd();
+            break;
+            
+        case 4:
+            drawInst1();
+            break;
+            
+        case 5:
+            drawInst2();
             break;
     }
     if ( bToggleMiddleLine ){
@@ -484,7 +514,7 @@ void testApp::drawGameplay() {
 
 void testApp::drawInterlude() {
     ofSetColor(255);
-    bitdustLarge.drawString("ROUND " + ofToString(roundNum) + " END" , screenMiddle.x - 310, screenMiddle.y - 200);
+    bitdustLarge.drawString("ROUND " + ofToString(roundNum) + " END" , screenMiddle.x - 320, screenMiddle.y - 200);
     
     ofNoFill();
     ofSetLineWidth(6.0);
@@ -492,8 +522,35 @@ void testApp::drawInterlude() {
     bitdustMedium.drawString("Player 1: " + ofToString(player1Score), screenMiddle.x - 215, screenMiddle.y - 65);
     bitdustMedium.drawString("Player 2: " + ofToString(player2Score), screenMiddle.x - 215, screenMiddle.y - 15);
     
-    bitdustMedium.drawString("CONTINUE IN", screenMiddle.x - 135, screenMiddle.y + 150);
-    bitdustLarge.drawString(ofToString(timeLeft), screenMiddle.x - 25, screenMiddle.y + 250);
+    bitdustMedium.drawString("CONTINUE IN", screenMiddle.x - 135, screenMiddle.y + 200);
+    bitdustLarge.drawString(ofToString(timeLeft), screenMiddle.x - 25, screenMiddle.y + 300);
+    
+    //Draw what role players will take next
+    bitdustMedium.drawString("Player 1", screenMiddle.x - 500, screenMiddle.y + 150);
+    bitdustMedium.drawString("Player 2", screenMiddle.x + 280, screenMiddle.y + 150);
+    
+    if (obstaclePlayer == 1) {
+        ofPushMatrix();{
+            ofTranslate(screenMiddle.x - 400, screenMiddle.y + 250);
+            player1Snake.draw(0,0);
+        }ofPopMatrix();
+        
+        ofPushMatrix();{
+            ofTranslate(screenMiddle.x + 390, screenMiddle.y + 250);
+            player2Obstacle.draw(0,0);
+        }ofPopMatrix();
+    }
+    else {
+        ofPushMatrix();{
+            ofTranslate(screenMiddle.x - 400, screenMiddle.y + 250);
+            player1Obstacle.draw(0,0);
+        }ofPopMatrix();
+        
+        ofPushMatrix();{
+            ofTranslate(screenMiddle.x + 390, screenMiddle.y + 250);
+            player2Snake.draw(0,0);
+        }ofPopMatrix();
+    }
 }
 
 void testApp::drawEnd() {
@@ -509,6 +566,29 @@ void testApp::drawEnd() {
         bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y + 80);
         bitdustSmall.drawString("SORRY PLAYER 1. YOU WEREN'T GOOD ENOUGH.", screenMiddle.x - 250, screenMiddle.y + 170);
     }
+}
+
+void testApp::drawInst1() {
+    ofPushMatrix();{
+        ofSetColor(255,255);
+        ofTranslate(screenMiddle);
+        instructions01.draw(0,0);
+    }ofPopMatrix();
+    
+    ofSetColor(150);
+    bitdustSmall.drawString("PRESS 'A' TO CONTINUE", screenMiddle.x - 125, ofGetWindowHeight() - 40);
+    
+}
+
+void testApp::drawInst2() {
+    ofPushMatrix();{
+        ofSetColor(255,255);
+        ofTranslate(screenMiddle);
+        instructions02.draw(0,0);
+    }ofPopMatrix();
+    
+    ofSetColor(150);
+    bitdustSmall.drawString("PRESS 'A' TO CONTINUE", screenMiddle.x - 125, ofGetWindowHeight() - 40);
 }
 
 //--------------------------------------------------------------
@@ -535,7 +615,7 @@ void testApp::resetGameplay() {
     
     snake_collide.play();
     
-    timeLeft = 5;
+    timeLeft = 6;
     startCountdown = ofGetElapsedTimef();
     
     //Reset snake attributes
@@ -571,6 +651,75 @@ void testApp::resetGameplay() {
     bIsWall = false;
     
     powerups.clear();
+}
+
+void testApp::resetEntireGame() {
+    snake.bHasCollided = false;
+    
+    timeLeft = 6;
+    startCountdown = ofGetElapsedTimef();
+    
+    //Reset snake attributes
+    snake.pos.set(100, ofGetWindowHeight() / 2);
+    snake.vel.set(5, 0);
+    snake.snakePos.erase(snake.snakePos.begin(), snake.snakePos.end() - 25);
+    
+    for (int i = 0; i < snake.snakePos.size(); i++) {
+        snake.snakePos[i] = snake.pos - snake.snakeSize;
+    }
+    
+    //Destroy all obstacles and reset their attributes.
+    obstacle.obList.clear();
+    obstacle.obSize = 0.5;
+    obstacle.obLife = 250.0;
+    obstacle.moveForce = 5.0;
+    obstacle.pos = ofGetWindowSize() / 2;
+    obstacle.vel.set( 0, 0 );
+    
+    timeScale = 1.0;
+    currentTimeScale = 1.0;
+    
+    //Reset powerups
+    bIsBonus = false;
+    bIsShort = false;
+    bIsSlow = false;
+    bIsInvincible = false;
+    bIsBomb = false;
+    bIsFast = false;
+    bIsLong = false;
+    bIsLarge = false;
+    bIsInvisible = false;
+    bIsWall = false;
+    
+    powerups.clear();
+    
+    gameState = 0; //Intro
+    
+    roundNum = 1;
+    
+    player1Score = 0;
+    player2Score = 0;
+    
+    snakePlayer = 1;
+    obstaclePlayer = 2;
+    snake.snakePlayer = 1;
+    obstacle.obstaclePlayer = 2;
+    scoreModifier = 13;
+    
+    lastTime = ofGetElapsedTimef();
+    timeScale = 1.0;
+    currentTimeScale = 0.8;
+    
+    currentSnakeLength = 25;
+    currentObstacleSize = 0.5;
+    
+    powerupStartTime = 0.0;
+    powerupTimeBetween = 5.0;
+    
+    bIsPlayer1Ready = false;
+    bIsPlayer2Ready = false;
+    
+    bIsCountdownTriggered = false;
 }
 
 void testApp::managePowerups() {
@@ -705,6 +854,14 @@ void testApp::keyPressed(int key){
             gameState = 3;
             break;
             
+        case '4':
+            gameState = 4;
+            break;
+            
+        case '5':
+            gameState = 5;
+            break;
+            
         case 'l':
             bToggleMiddleLine = !bToggleMiddleLine;
             break;
@@ -738,6 +895,24 @@ void testApp::keyPressed(int key){
             break;
             
         case 3:
+            if ( key == ' ' || key == OF_KEY_ALT) {
+                resetEntireGame();
+            }
+            break;
+            
+        case 4:
+            if ( key == ' ' || key == OF_KEY_ALT) {
+                gameState = 5;
+            }
+            break;
+            
+        case 5:
+            if ( key == OF_KEY_ALT) {
+                gameState = 0;
+            }
+            if ( key == ' ' ) {
+                gameState = 0;
+            }
             break;
     }
 }
@@ -872,6 +1047,18 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
                 gameState == 0;
             }
             break;
+            
+        case 4:
+            if ( e.button == 11) {
+                gameState = 5;
+            }
+            break;
+            
+        case 5:
+            if ( e.button == 11) {
+                gameState = 0;
+            }
+            break;
     }
 }
 
@@ -973,6 +1160,18 @@ void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
                 obstaclePlayer = 2;
                 gameState = 0;
                 roundNum = 0;
+            }
+            break;
+            
+        case 4:
+            if ( e.button == 11) {
+                gameState = 5;
+            }
+            break;
+            
+        case 5:
+            if ( e.button == 11) {
+                gameState = 0;
             }
             break;
     }

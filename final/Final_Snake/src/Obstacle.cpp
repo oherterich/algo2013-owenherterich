@@ -91,7 +91,6 @@ void Obstacle::checkKeyPress( int key, int player ) {
         
         if ( key == ' ' ) {
             addObstacle();
-            placeOb.play();
         }
     }
 }
@@ -160,6 +159,7 @@ void Obstacle::addObstacle() {
         }
         
         lastObTime = ofGetElapsedTimef();
+        placeOb.play();
     }
 }
 
@@ -197,10 +197,10 @@ void Obstacle::update( float dt ) {
     theta += 1 * dt * 50;
     
     if (obstaclePlayer == 1) {
-        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 200, 255 );
+        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 170, 255 );
     }
     else {
-        c.setHsb( sin(ofGetElapsedTimef()) * 20 + 130, 200, 255 );
+        c.setHsb( sin(ofGetElapsedTimef()) * 20 + 130, 170, 255 );
     }
 }
 

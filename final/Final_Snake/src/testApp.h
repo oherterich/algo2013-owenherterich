@@ -33,7 +33,8 @@ class testApp : public ofBaseApp{
      1: Regular Gameplay
      2: Between Rounds
      3: End Screen
-     4: Instructions
+     4: Instructions 1
+     5: Instructions 2
     **********************/
     int gameState;
     int roundNum;
@@ -101,12 +102,26 @@ class testApp : public ofBaseApp{
     void updateInterlude();
     void drawInterlude();
     
+    ofImage player1Snake, player2Snake;
+    ofImage player1Obstacle, player2Obstacle;
     
     /*********************
         END STUFF
      **********************/
     void updateEnd();
     void drawEnd();
+    
+    void resetEntireGame();
+    
+    /*********************
+       INSTRUCTION STUFF
+     **********************/
+    void updateInst1();
+    void drawInst1();
+    void updateInst2();
+    void drawInst2();
+    
+    ofImage instructions01, instructions02;
     
     /*********************
      POWERUP STUFF
