@@ -480,6 +480,10 @@ void testApp::drawIntro() {
 
 void testApp::drawGameplay() {
     
+    if (bIsInvincible) {
+        snake.c.setHsb(0, 0, 255);
+    }
+    
     if (!bIsInvisible) {
         snake.draw();
     }
