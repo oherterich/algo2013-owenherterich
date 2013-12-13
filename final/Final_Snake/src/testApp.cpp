@@ -565,15 +565,24 @@ void testApp::drawEnd() {
     ofSetColor(255);
     
     if (player1Score > player2Score) {
-        bitdustLarge.drawString("PLAYER 1 IS", screenMiddle.x - 300, screenMiddle.y);
-        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y + 80);
+        bitdustLarge.drawString("PLAYER 1 IS", screenMiddle.x - 300, screenMiddle.y - 200);
+        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y - 120);
         bitdustSmall.drawString("SORRY PLAYER 2. YOU WEREN'T GOOD ENOUGH.", screenMiddle.x - 250, screenMiddle.y + 170);
     }
     else {
-        bitdustLarge.drawString("PLAYER 2 IS", screenMiddle.x - 325, screenMiddle.y);
-        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y + 80);
+        bitdustLarge.drawString("PLAYER 2 IS", screenMiddle.x - 325, screenMiddle.y - 200);
+        bitdustLarge.drawString("THE WINNER", screenMiddle.x - 290, screenMiddle.y - 120);
         bitdustSmall.drawString("SORRY PLAYER 1. YOU WEREN'T GOOD ENOUGH.", screenMiddle.x - 250, screenMiddle.y + 170);
     }
+    
+    ofNoFill();
+    ofSetLineWidth(6.0);
+    ofRect(screenMiddle.x, screenMiddle.y + 20, 490, 150);
+    bitdustMedium.drawString("Player 1: " + ofToString(player1Score), screenMiddle.x - 215, screenMiddle.y + 5);
+    bitdustMedium.drawString("Player 2: " + ofToString(player2Score), screenMiddle.x - 215, screenMiddle.y + 65);
+    
+    ofSetColor(150);
+    bitdustSmall.drawString("PRESS 'A' TO RESET", screenMiddle.x - 115, ofGetWindowHeight() - 40);
 }
 
 void testApp::drawInst1() {
@@ -971,7 +980,7 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
         case 1:
             if ( snakePlayer == 1 ) {
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         snake.checkGamepad(2, 1);
                     }
                     else if ( e.value > 0.95) {
@@ -980,7 +989,7 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         snake.checkGamepad(0, 1);
                     }
                     else if ( e.value > 0.95) {
@@ -990,7 +999,7 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
             }
             else if ( snakePlayer == 2 ) {
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         obstacle.checkGamepad(2, 1);
                     }
                     else if ( e.value > 0.95) {
@@ -999,7 +1008,7 @@ void testApp::axisChanged(ofxGamepadAxisEvent& e)
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         obstacle.checkGamepad(0, 1);
                     }
                     else if ( e.value > 0.95) {
@@ -1082,16 +1091,16 @@ void testApp::axisChanged2(ofxGamepadAxisEvent& e)
         case 1:
             if ( snakePlayer == 2 ) {
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         snake.checkGamepad(2, 1);
                     }
-                    else if ( e.value > 0.95) {
+                    else if ( e.value > 0.90) {
                         snake.checkGamepad(3, 1);
                     }
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         snake.checkGamepad(0, 1);
                     }
                     else if ( e.value > 0.95) {
@@ -1101,19 +1110,19 @@ void testApp::axisChanged2(ofxGamepadAxisEvent& e)
             }
             else if ( snakePlayer == 1 ) {
                 if ( e.axis == 2 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         obstacle.checkGamepad(2, 1);
                     }
-                    else if ( e.value > 0.95) {
+                    else if ( e.value > 0.90) {
                         obstacle.checkGamepad(3, 1);
                     }
                 }
                 
                 if ( e.axis == 3 ) {
-                    if ( e.value < -0.95 ) {
+                    if ( e.value < -0.90 ) {
                         obstacle.checkGamepad(0, 1);
                     }
-                    else if ( e.value > 0.95) {
+                    else if ( e.value > 0.90) {
                         obstacle.checkGamepad(1, 1);
                     }
                 }
