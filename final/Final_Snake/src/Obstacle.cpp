@@ -15,9 +15,9 @@ Obstacle::Obstacle( ) {
     theta = 0;
     
     obSize = 0.5;
-    obLife = 400.0;
+    obLife = 350.0;
     
-    moveForce = 11.0;
+    moveForce = 9.0;
     damping = 0.95;
     
     lastObTime = ofGetElapsedTimef();
@@ -143,7 +143,7 @@ void Obstacle::screenBoundaryCheck() {
 }
 
 void Obstacle::addObstacle() {
-    if (ofGetElapsedTimef() - lastObTime > 0.2) {
+    if (ofGetElapsedTimef() - lastObTime > 0.5) {
         if ( obstaclePlayer == 1 ) {
             ObstacleShape ob(obSize, &player1Ob, theta);
             ob.pos.set( pos );
@@ -200,7 +200,7 @@ void Obstacle::update( float dt ) {
         c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 200, 255 );
     }
     else {
-        c.setHsb( sin(ofGetElapsedTimef()) * 40 + 100, 200, 255 );
+        c.setHsb( sin(ofGetElapsedTimef()) * 20 + 130, 200, 255 );
     }
 }
 

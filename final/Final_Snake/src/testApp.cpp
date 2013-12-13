@@ -17,10 +17,10 @@ void testApp::setup(){
         ofAddListener(pad->onButtonReleased, this, &testApp::buttonReleased);
 	}
     if(ofxGamepadHandler::get()->getNumPads()>1){
-        pad2 = ofxGamepadHandler::get()->getGamepad(0);
-        ofAddListener(pad2->onAxisChanged, this, &testApp::axisChanged);
-        ofAddListener(pad2->onButtonPressed, this, &testApp::buttonPressed);
-        ofAddListener(pad2->onButtonReleased, this, &testApp::buttonReleased);
+        pad2 = ofxGamepadHandler::get()->getGamepad(1);
+        ofAddListener(pad2->onAxisChanged, this, &testApp::axisChanged2);
+        ofAddListener(pad2->onButtonPressed, this, &testApp::buttonPressed2);
+        ofAddListener(pad2->onButtonReleased, this, &testApp::buttonReleased2);
 	}
     
     gameState = 0; //Intro
@@ -41,7 +41,7 @@ void testApp::setup(){
     
     lastTime = ofGetElapsedTimef();
     timeScale = 1.0;
-    currentTimeScale = 1.0;
+    currentTimeScale = 0.8;
     
     screenMiddle.set(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
     
@@ -411,7 +411,32 @@ void testApp::drawIntro() {
     
     if (!bIsCountdownTriggered) {
         ofSetColor(255, tEnter);
-        bitdustMedium.drawString("Press Enter to Begin", screenMiddle.x-250, screenMiddle.y + 150);
+        bitdustMedium.drawString("Press 'A' to Begin", screenMiddle.x-210, screenMiddle.y + 100);
+        
+        ofSetColor(255);
+        bitdustSmall.drawString("Player 1: ", screenMiddle.x - 100, screenMiddle.y + 190);
+        bitdustSmall.drawString("Player 2: ", screenMiddle.x - 100, screenMiddle.y + 220);
+        
+        if (bIsPlayer1Ready) {
+            ofSetColor(30,240,12);
+            bitdustSmall.drawString("READY!", screenMiddle.x + 25, screenMiddle.y + 190);
+        }
+        else {
+            ofSetColor(150);
+            bitdustSmall.drawString("WAITING", screenMiddle.x + 25, screenMiddle.y + 190);
+        }
+        
+        if (bIsPlayer2Ready) {
+            ofSetColor(30,240,12);
+            bitdustSmall.drawString("READY!", screenMiddle.x + 25, screenMiddle.y + 220);
+        }
+        else {
+            ofSetColor(150);
+            bitdustSmall.drawString("WAITING", screenMiddle.x + 25, screenMiddle.y + 220);
+        }
+        
+        ofSetColor(150);
+        bitdustSmall.drawString("PRESS 'Y' FOR INSTRUCTIONS", screenMiddle.x - 160, ofGetWindowHeight() - 40);
     }
     
     if ( bIsPlayer1Ready && bIsPlayer2Ready ) {
@@ -434,7 +459,7 @@ void testApp::drawGameplay() {
         ofNoFill();
         ofSetLineWidth( 10.0 );
         ofSetColor(255,0,0);
-        ofRect(ofGetWindowSize() / 2, ofGetWindowWidth(), ofGetWindowHeight());
+        ofRect(ofGetWindowSize() / 2, ofGetScreenWidth(), ofGetScreenHeight());
     }
     
     for ( int i = 0; i < powerups.size(); i++) {
@@ -544,6 +569,8 @@ void testApp::resetGameplay() {
     bIsLarge = false;
     bIsInvisible = false;
     bIsWall = false;
+    
+    powerups.clear();
 }
 
 void testApp::managePowerups() {
@@ -685,9 +712,14 @@ void testApp::keyPressed(int key){
     
     switch (gameState) {
         case 0:
-            if ( key == OF_KEY_RETURN) {
+            if ( key == OF_KEY_ALT) {
                 bIsPlayer1Ready = true;
+            }
+            if ( key == ' ' ) {
                 bIsPlayer2Ready = true;
+            }
+            if ( key == 'i' || key == 'I' ) {
+                gameState = 4;
             }
             break;
             
@@ -808,7 +840,9 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
         case 0:
             if ( e.button == 11) {
                 bIsPlayer1Ready = true;
-                bIsPlayer2Ready = true;
+            }
+            if ( e.button == 14) {
+                gameState = 4;
             }
             break;
             
@@ -907,8 +941,10 @@ void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
     switch (gameState) {
         case 0:
             if ( e.button == 11) {
-                bIsPlayer1Ready = true;
                 bIsPlayer2Ready = true;
+            }
+            if ( e.button == 14) {
+                gameState = 4;
             }
             break;
             
@@ -930,12 +966,13 @@ void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
             
         case 3:
             if ( e.button == 11) {
+                resetGameplay();
                 player1Score = 0;
                 player2Score = 0;
                 snakePlayer = 1;
                 obstaclePlayer = 2;
-                resetGameplay();
-                gameState == 0;
+                gameState = 0;
+                roundNum = 0;
             }
             break;
     }

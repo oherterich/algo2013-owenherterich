@@ -32,10 +32,10 @@ Powerup::Powerup( bool _bIsSnake, ofTrueTypeFont *_type, int _snakePlayer, ofSou
     if (bIsSnake) {
         rand = ofRandom(5);
         if (snakePlayer == 1) {
-            nameHue = 100.0;
+            nameHue = 20.0;
         }
         else {
-            nameHue = 20.0;
+            nameHue = 100.0;
         }
     }
     else {

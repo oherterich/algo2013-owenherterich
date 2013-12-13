@@ -33,6 +33,7 @@ class testApp : public ofBaseApp{
      1: Regular Gameplay
      2: Between Rounds
      3: End Screen
+     4: Instructions
     **********************/
     int gameState;
     int roundNum;
