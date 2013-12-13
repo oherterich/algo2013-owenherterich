@@ -31,6 +31,8 @@ Obstacle::Obstacle( ) {
     obstaclePlayer = 2;
     
     c.set(255,255,0);
+    sat = 170;
+    bright = 255;
 }
 
 void Obstacle::addForce( ofVec2f force ) {
@@ -159,6 +161,8 @@ void Obstacle::addObstacle() {
         }
         
         lastObTime = ofGetElapsedTimef();
+        sat = 0;
+        bright = 150;
         placeOb.play();
     }
 }
@@ -197,10 +201,18 @@ void Obstacle::update( float dt ) {
     theta += 1 * dt * 50;
     
     if (obstaclePlayer == 1) {
-        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, 170, 255 );
+        c.setHsb( sin(ofGetElapsedTimef() * 0.5) * 20 + 20, sat, bright );
     }
     else {
-        c.setHsb( sin(ofGetElapsedTimef()) * 20 + 130, 170, 255 );
+        c.setHsb( sin(ofGetElapsedTimef()) * 20 + 130, sat, bright );
+    }
+    
+    if (sat < 170) {
+        sat = ofMap(ofGetElapsedTimef() - lastObTime, 0.0, 0.5, 0, 170);
+    }
+    
+    if (bright < 255) {
+        bright = ofMap(ofGetElapsedTimef() - lastObTime, 0.0, 0.5, 150, 255);
     }
 }
 

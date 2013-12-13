@@ -45,6 +45,8 @@ class Obstacle {
         int obstaclePlayer;
     
         ofColor c;
+        float sat;
+        float bright;
     
         ofSoundPlayer placeOb;
 };
