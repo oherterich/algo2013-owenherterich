@@ -23,6 +23,10 @@ void testApp::setup(){
         ofAddListener(pad2->onButtonReleased, this, &testApp::buttonReleased2);
 	}
     
+    //SET UP POST PROCESSING STUFF
+    //post.init(ofGetWidth(), ofGetHeight());
+    //post.createPass<BloomPass>()->setEnabled(false);
+    
     gameState = 0; //Intro
     
     roundNum = 1;
@@ -869,6 +873,10 @@ void testApp::keyPressed(int key){
         case 'l':
             bToggleMiddleLine = !bToggleMiddleLine;
             break;
+            
+        case 'r':
+            resetEntireGame();
+            break;
     }
     
     switch (gameState) {
@@ -881,6 +889,8 @@ void testApp::keyPressed(int key){
             }
             if ( key == 'i' || key == 'I' ) {
                 gameState = 4;
+                bIsPlayer1Ready = false;
+                bIsPlayer2Ready = false;
             }
             break;
             
@@ -1022,6 +1032,8 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
             }
             if ( e.button == 14) {
                 gameState = 4;
+                bIsPlayer1Ready = false;
+                bIsPlayer2Ready = false;
             }
             break;
             
@@ -1043,12 +1055,7 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
             
         case 3:
             if ( e.button == 11) {
-                player1Score = 0;
-                player2Score = 0;
-                snakePlayer = 1;
-                obstaclePlayer = 2;
-                resetGameplay();
-                gameState == 0;
+                resetEntireGame();
             }
             break;
             
@@ -1136,6 +1143,8 @@ void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
             }
             if ( e.button == 14) {
                 gameState = 4;
+                bIsPlayer1Ready = false;
+                bIsPlayer2Ready = false;
             }
             break;
             
@@ -1157,13 +1166,7 @@ void testApp::buttonReleased2(ofxGamepadButtonEvent& e)
             
         case 3:
             if ( e.button == 11) {
-                resetGameplay();
-                player1Score = 0;
-                player2Score = 0;
-                snakePlayer = 1;
-                obstaclePlayer = 2;
-                gameState = 0;
-                roundNum = 0;
+                resetEntireGame();
             }
             break;
             
